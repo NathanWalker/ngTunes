@@ -72,6 +72,7 @@ export class AudiographService {
 
   constructor(private store: Store<any>) {
     store.select('audiograph').subscribe((state: IAudiographState) => {
+      // since $audiograph needs same instance, don't lose reference
       this.playlist.length = 0;
       for (let item of state.playlist) {
         this.playlist.push(item);

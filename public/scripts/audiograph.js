@@ -94,7 +94,7 @@ if (isIOS) {
 }
 
 window.onkeydown = function (e) {
-  if (e.keyCode === 32) return false;
+  if (e.keyCode === 39) return false;
 };
 setupPost();
 
@@ -1399,6 +1399,9 @@ module.exports = function () {
   if (isMobile) {
     intro2.innerHTML = '<span class="spacebar">tap</span> and hold to load a new track';
     intro3.innerHTML = 'Release <span class="spacebar">tap</span> to play';
+  } else {
+    intro2.innerHTML = 'Hold <span class="spacebar">-&gt;</span> to load a new track';
+    intro3.innerHTML = 'Release <span class="spacebar">-&gt;</span> to play';
   }
 
   var introDelay = 0.0;
@@ -1641,7 +1644,7 @@ module.exports = function (_ref) {
   function enable() {
     log.easterEgg();
     window.addEventListener('keydown', function (ev) {
-      if (ev.keyCode === 32 && !ret.keyDown) {
+      if (ev.keyCode === 39 && !ret.keyDown) {
         beginEvent();
         return false;
       } else if (ev.keyCode === 67 && !ret.easterEggDown) {
@@ -1653,7 +1656,7 @@ module.exports = function (_ref) {
       }
     });
     window.addEventListener('keyup', function (ev) {
-      if (ev.keyCode === 32 && ret.keyDown) {
+      if (ev.keyCode === 39 && ret.keyDown) {
         endEvent();
         return false;
       } else if (ev.keyCode === 67 && ret.easterEggDown) {
