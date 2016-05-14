@@ -116,15 +116,18 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
     if (typeof index !== 'undefined') {
       currentTrackIndex = index;
     } else {
-      if (direction) {
+      if (direction > 0) {
         currentTrackIndex++;
       } else {
         currentTrackIndex--;
       }
     }
-    if (currentTrackIndex === state.playlist.length || currentTrackIndex < 0) {
+    if (currentTrackIndex === state.playlist.length) {
       // back to beginning
       currentTrackIndex = 0;
+    } else if (currentTrackIndex < 0) {
+      // go to the end (looping back in reverse)
+      currentTrackIndex = state.playlist.length - 1;
     }
     state.playlist[currentTrackIndex].active = true;
     state.playlist[currentTrackIndex].playing = true;
@@ -151,14 +154,22 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
       if (typeof action.payload === 'undefined') {
         action.payload = { playing: !state.playing };
       }
+      if (action.payload.playing) {
+        $audiograph.play();
+      } else {
+        $audiograph.pause();
+      }
       return changeState();
     case AUDIOGRAPH_ACTIONS.NEXT_TRACK:
       changeTrack(1);
+      $audiograph.playNext();
       return changeState();
     case AUDIOGRAPH_ACTIONS.PREV_TRACK:
       changeTrack(-1);
+      $audiograph.playPrevious();
       return changeState();
     case AUDIOGRAPH_ACTIONS.TARGET_TRACK:
+      $audiograph.playIndex(action.payload);
       changeTrack(0, action.payload);
       return changeState();
     default:

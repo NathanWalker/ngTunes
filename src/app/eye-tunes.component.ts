@@ -41,7 +41,7 @@ export class EyeTunesAppComponent {
   }
 
   public controlTrack(direction: number) {
-    let type = direction ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
+    let type = direction > 0 ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
     this.store.dispatch({ type });
   }
 }
