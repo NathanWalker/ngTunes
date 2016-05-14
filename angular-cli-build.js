@@ -12,6 +12,11 @@ module.exports = function(defaults) {
       'reflect-metadata/*.js',
       'rxjs/**/*.js',
       '@angular/**/*.js'
-    ]
+    ],
+    sassCompiler: {
+      includePaths: [
+        'src/app/style'
+      ]
+    }
   });
 };
