@@ -1,3 +1,7 @@
+
+// public api object in the global namespace
+var $audiograph = {};
+
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -95,56 +99,12 @@ window.onkeydown = function (e) {
 setupPost();
 
 var supportsMedia = !isIOS;
-setupScene({ palettes: getPalette(), supportsMedia: supportsMedia });
 
-// first pass at pulling playlists out of this library
-function getPlaylists() {
+// define the public api
+$audiograph.init = init;
 
-  // build an array of playlist objects that includes the frequencies
-  // NOTE not crazy about the `src` property name
-  // but using this name prevents having to make other code changes in this library 
-  var playlists = [
-    {
-      src: 'assets/audio/pilotpriest/01_-_Matter.mp3',
-      // TODO not sure what this is doing... 
-      // we might not be able to get meaningful numbers for the Spotify tracks
-      frequencies: [[40, 55], [40, 55]]
-    },
-    {
-      src: 'assets/audio/pilotpriest/02_-_Now_Be_The_Light.mp3',
-      frequencies: [[145, 5000], [145, 5000]]
-    }
-  ];
-
-  return playlists;
-  
-  // old code...
-  
-  // var filenames = ['01_-_Matter', '02_-_Now_Be_The_Light', '03_-_Entrance', '04_-_I_Am_You', '05_-_Skin', '06_-_Anthem', '07_-_Lipstick', '08_-_Softcore', '09_-_Starfilter_Fur_Alina'];
-
-  // var frequencies = [
-  //   [[40, 55], [40, 55]], // Matter
-  //   [[145, 5000], [145, 5000]], // Now Be The Light
-  //   [[510, 535], [20, 50]], // Entrance
-  //   [[35, 55], [35, 55]], // I Am You
-  //   [[30, 55], [30, 50]], // Skin
-  //   [[1200, 2000], [20, 50]], // Anthem
-  //   [[50, 80], [16800, 20000]], // Lipstick
-  //   [[10, 150], [10, 150]], // Softcore
-  //   [[0, 0], [450, 4500]] // Fur Alina
-  // ];
-
-  // var playlists = filenames.map(function (f) {
-  //   return 'assets/audio/pilotpriest/' + f;
-  // }).map(function (url) {
-  //   var formats = [url + '.mp3'];
-  //   if (canPlayDDS) {
-  //     formats.unshift({
-  //       src: url + '_Dolby.mp4'
-  //     });
-  //   }
-  //   return formats;
-  // });
+function init(playlists) {
+  setupScene({ palettes: getPalette(), supportsMedia: supportsMedia, playlists: playlists });
 }
 
 function setupPost() {
@@ -224,6 +184,7 @@ function render(dt) {
 function setupScene(_ref) {
   var palettes = _ref.palettes;
   var envMap = _ref.envMap;
+  var playlists = _ref.playlists;
 
   document.querySelector('#canvas').style.display = 'block';
 
@@ -235,7 +196,7 @@ function setupScene(_ref) {
   document.body.style.background = '#F9F9F9';
 
   var audio = createAudio();
-  audio.playlists = getPlaylists();  
+  audio.playlists = playlists;
   
   var started = false;
   var time = 0;
