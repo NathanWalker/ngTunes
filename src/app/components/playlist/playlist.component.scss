@@ -24,12 +24,42 @@
   border-bottom: 1px solid #efefef;
 }
 
+.fa-remove {
+  &:before {
+    color:#fff;
+  }
+  
+  &:hover {
+    &:before {
+      color:#999;
+    }
+  }
+}
 
+.row {
+  position: relative;
+}
+
+.control {
+  position: absolute;
+  right: 10px;
+  top:10px;
+}
 
 .search-results {
   position: relative;
   // top:75px;
   // margin-top: 75px;
+}
+
+.track {
+  font-size: 1.3em;
+  color: lightgreen;
+}
+
+.artist {
+  font-size:12px;
+  color:lightskyblue;
 }
 
 .item {
@@ -43,18 +73,16 @@
   &:hover {
     background-color: rgba(255, 255, 255, .7);
     transition: background-color .5s;
+    
+    .track {
+      color:#444;
+    }
+    
+    .artist {
+      color:rgb(25,118,210);
+    }
   }
   
-}
-
-.track {
-  font-size: 1.3em;
-  color: lightgreen;
-}
-
-.artist {
-  font-size:12px;
-  color:lightskyblue;
 }
 
 .play-btn {
@@ -63,7 +91,7 @@
 .control {
   cursor: pointer;
   color: #28b0ed;
-  opacity: .2;
+  opacity: .4;
   transition: opacity .5s;
   
   &:hover {

@@ -113,10 +113,10 @@ a, a:active, .info:visited {
   /*z-index: 10;*/
   position: relative;
 }
-a:hover {
+/*a:hover {
   color: #3C3C3C;
-}
-a::after, a:hover::after {
+}*/
+/*a::after, a:hover::after {
   content: ' ';
   width: 100%;
   left: 0;
@@ -127,15 +127,15 @@ a::after, a:hover::after {
   -ms-transition: all 0.05s ease-out;
   -o-transition: all 0.05s ease-out;
   transition: all 0.05s ease-out;
-}
-a::after {
+}*/
+/*a::after {
   height: 0px;
   bottom: 0px;
 }
 a:hover::after {
   height: 4px;
   bottom: -4px;
-}
+}*/
 
 .subtext {
   font-size: 12px;

@@ -11,7 +11,7 @@
           <div class="artist">{{track.artist}}</div>
         </div>
         <div class="col-xs-1 control">
-          <a class="play-btn" (click)="remove(track)">
+          <a (click)="remove(track)" data-hint="Remove" class="hint--top-left">
             <i class="fa fa-remove"></i>
           </a>
         </div>

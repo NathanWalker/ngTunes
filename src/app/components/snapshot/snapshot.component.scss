@@ -1,7 +1,7 @@
 .snapshot {
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  bottom: 32px;
+  right: 42px;
   z-index: 75;
   cursor: pointer;
   
@@ -13,9 +13,10 @@
     height: 100%;
   }
   
-  .fa-camera {
+  .fa-twitter {
     &:before {
       font-size: 60px;
+      color: #1da1f2;
     } 
   }
   
