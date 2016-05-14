@@ -1,10 +1,12 @@
-import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+
 
 import {Store, Reducer, Action} from '@ngrx/store';
 
 import {LogService} from './log.service';
 import {Analytics, AnalyticsService} from './analytics.service';
+import {PushableService} from './pushable.service.ts';
 
 // analytics
 const CATEGORY: string = 'Twitter';
@@ -69,12 +71,18 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
 
 // }
 @Injectable()
-export class TwitterService {
-  public state$: Observable<any>;
+export class TwitterService extends PushableService {
+  public twitterStream$: Observable<any>;
+  constructor(options) {
+    super(options);
 
-  constructor() {
-
+    this.twitterStream$ = this.getPusherObservable('AngularAttack', 'new_tweet');
   }
-
-
 }
+
+
+
+
+
+
+
