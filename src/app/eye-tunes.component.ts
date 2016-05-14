@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LogService, SnapshotService } from './shared/index';
+import { LogService, SnapshotService, AudiographService } from './shared/index';
 
 // components
 import { SearchComponent } from './components/search/search.component';
@@ -20,7 +20,7 @@ import { SnapshotComponent } from './components/snapshot/snapshot.component';
 export class EyeTunesAppComponent {
   title = 'eye-tunes works!';
   
-  constructor(private logger: LogService, private snapshot: SnapshotService) {
+  constructor(private logger: LogService, private snapshot: SnapshotService, private audiograph: AudiographService) {
     logger.debug('Logging working: EyeTunesAppComponent :)');
   }
 }

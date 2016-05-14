@@ -67,7 +67,7 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
 
 @Injectable()
 export class AudiographService {
-  playlist: IPlaylistTrack[];
+  playlist: IPlaylistTrack[] = [];
   private _init: boolean = false;
 
   constructor(private store: Store<any>) {
@@ -85,8 +85,8 @@ export class AudiographService {
   }
   
   init() {
-    $audiograph.init(this.playlist);
-    return;
+    $audiograph.init(this.playlist);  
+
 
     // TODO remove once Spotify search is using this service
 
