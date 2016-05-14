@@ -1,7 +1,22 @@
 .search {
-  position: absolute;
+  position: fixed;
   top:20px;
   left:50%;
   margin-left:-100px;
-  width:200px;
+  width:250px;
+  z-index: 100;
+  
+  input {
+    width:170px;
+    display: inline-block;
+    opacity: .7;
+    
+    &:focus {
+      opacity: 1;
+    }
+  }
+  
+  button {
+    float: right;
+  }
 }
