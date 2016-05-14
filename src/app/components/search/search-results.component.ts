@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LogService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index';
+import { LogService, WindowService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index';
 
 @Component({
   selector: 'search-results',
@@ -9,13 +9,13 @@ import { LogService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index'
 })
 export class SearchResultsComponent {
 
-  constructor(private logger: LogService, private store: Store<any>, public spotify: SpotifyService) {
+  constructor(private logger: LogService, private win: WindowService, private store: Store<any>, public spotify: SpotifyService) {
     
   }
 
   public play(track: any) {
     // TODO: play track
-    alert('TODO!');
+    this.win.alert('TODO!');
   }
 
   public close() {

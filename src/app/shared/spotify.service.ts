@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {Store, Reducer, Action} from '@ngrx/store';
 
-import {LogService} from './index';
+import {LogService} from './log.service';
 
 // analytics
 const CATEGORY: string = 'Spotify';
