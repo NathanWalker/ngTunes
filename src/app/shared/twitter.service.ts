@@ -1,5 +1,5 @@
 import {Injectable, Inject} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 
 import {Store, Reducer, Action} from '@ngrx/store';
 
@@ -69,8 +69,10 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
 @Injectable()
 export class TwitterService extends PushableService {
   public twitterStream$: Observable<any>;
+  public state$: Observable<any>;
 
-  onPushableServiceInit(pusherInstance: any) {
+  onPushableServiceInit(pusherInstance: any, store: Store<any>) {
+    this.state$ = store.select('twitter');
     this.twitterStream$ = this.getPusherObservable('AngularAttack', 'new_tweet');
   }
 }
