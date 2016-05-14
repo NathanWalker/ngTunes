@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LogService, WindowService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index';
+import {
+  LogService,
+  WindowService,
+  SpotifyService,
+  SPOTIFY_ACTIONS,
+  AUDIOGRAPH_ACTIONS,
+  IPlaylistTrack
+} from '../../shared/index';
 
 @Component({
   selector: 'search-results',
@@ -16,6 +23,15 @@ export class SearchResultsComponent {
   public play(track: any) {
     // TODO: play track
     this.win.alert('TODO!');
+  }
+
+  public add(track: any) {
+    let newTrack: IPlaylistTrack = {
+      trackName: track.name,
+      src: track.preview_url,
+      frequencies: [[145, 5000], [145, 5000]]
+    };
+    this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.ADD_TRACK, payload: newTrack });
   }
 
   public close() {

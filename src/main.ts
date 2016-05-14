@@ -8,7 +8,7 @@ import {
   APP_PROVIDERS,
   spotifyReducer,
   snapshotReducer,
-  AudiographService
+  audiographReducer
 } from './app/shared/index';
 
 if (environment.production) {
@@ -24,11 +24,7 @@ bootstrap(EyeTunesAppComponent, [
   APP_PROVIDERS,
   provideStore({
     spotify: spotifyReducer,
-    snapshot: snapshotReducer
+    snapshot: snapshotReducer,
+    audiograph: audiographReducer
   })
 ]);
-
-// TODO probably should wait to call the init function
-// until the user has search for and requested to play a track
-var audiograph = new AudiographService();
-audiograph.init();  
