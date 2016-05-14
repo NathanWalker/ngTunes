@@ -9,11 +9,11 @@ import { LogService, SNAPSHOT_ACTIONS } from '../../shared/index';
 })
 export class SnapshotComponent {
 
-  constructor(private logger: LogService, private store: Store<any>, @Inject('document') private document) {
+  constructor(private logger: LogService, private store: Store<any>, @Inject('fullpage') private fullpage) {
     
   }
 
   public snap() {
-    this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_NOW, payload: { element: this.document.body } })
+    this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_NOW, payload: { element: this.fullpage } })
   }
 }

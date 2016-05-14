@@ -18,7 +18,7 @@ bootstrap(EyeTunesAppComponent, [
   HTTP_PROVIDERS,
   provide(WindowService, { useValue: window }),
   provide('screenshot', { useValue: (<any>window).html2canvas }),
-  provide('document', { useValue: (<any>window).document }),
+  provide('fullpage', { useValue: (<any>window).document.body }),
   APP_PROVIDERS,
   provideStore({
     spotify: spotifyReducer,
