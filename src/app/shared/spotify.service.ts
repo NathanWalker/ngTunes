@@ -62,7 +62,7 @@ export class SpotifyService extends Analytics{
 
   constructor(public analytics:AnalyticsService, private http: Http, private logger: LogService, private store: Store<any>) {
     super(analytics);
-
+    this.category = CATEGORY;
     this.state$ = store.select('spotify');
   }
 
