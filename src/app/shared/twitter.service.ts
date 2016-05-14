@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Store, Reducer, Action} from '@ngrx/store';
 
 import {LogService} from './log.service';
+import {Analytics, AnalyticsService} from './analytics.service';
 
 // analytics
 const CATEGORY: string = 'Twitter';
@@ -56,10 +57,12 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
  */
 
 @Injectable()
-export class TwitterService {
+export class TwitterService extends Analytics {
   public state$: Observable<any>;
 
-  constructor(private logger: LogService, private store: Store<any>, @Inject('pusherInstance') private pusherInstance: any) {
+  constructor(public analytics: AnalyticsService, private logger: LogService, private store: Store<any>, @Inject('pusherInstance') private pusherInstance: any) {
+      super(analytics);
+      this.category = CATEGORY;
       this.state$ = store.select('twitter');
   }
 
