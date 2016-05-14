@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {Store, Reducer, Action} from '@ngrx/store';
 
 import {LogService} from './log.service';
+import {Analytics, AnalyticsService} from './analytics.service';
 
 // analytics
 const CATEGORY: string = 'Spotify';
@@ -55,14 +56,18 @@ export const spotifyReducer: Reducer<ISpotifyState> = (state: ISpotifyState = in
 const SEARCH_API: string = 'https://api.spotify.com/v1/search';
 
 @Injectable()
-export class SpotifyService {
+export class SpotifyService extends Analytics {
   public state$: Observable<any>;
   
-  constructor(private http: Http, private logger: LogService, private store: Store<any>) {
+  constructor(public analytics: AnalyticsService, private http: Http, private logger: LogService, private store: Store<any>) {
+    super(analytics);
+    this.category = CATEGORY;
+    
     this.state$ = store.select('spotify');
   }
 
   public search(query: string, type?: string): Observable<any[]> {
+    this.track(`Search`, { label: query });
     return this.http.get(SEARCH_API + `?q=${query}&type=${type || 'track'}`)
       .map(this.extractData);
   }

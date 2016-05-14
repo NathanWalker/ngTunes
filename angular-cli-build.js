@@ -13,6 +13,7 @@ module.exports = function(defaults) {
       'rxjs/**/*.js',
       '@angular/**/*.js',
       '@ngrx/**/*.js',
+      'angulartics2/**/*.js',
       'html2canvas/dist/html2canvas.js'
     ],
     sassCompiler: {

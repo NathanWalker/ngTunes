@@ -3,20 +3,24 @@ import {
   describe,
   expect,
   it,
-  inject
+  inject,
+  fakeAsync
 } from '@angular/core/testing';
+import {TestComponentBuilder} from '@angular/compiler/testing';
+import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
+import { LogService } from './shared/log.service';
 import { EyeTunesAppComponent } from '../app/eye-tunes.component';
 
-beforeEachProviders(() => [EyeTunesAppComponent]);
+beforeEachProviders(() => [LogService]);
 
 describe('App: EyeTunes', () => {
-  it('should create the app',
-      inject([EyeTunesAppComponent], (app: EyeTunesAppComponent) => {
-    expect(app).toBeTruthy();
-  }));
 
-  it('should have as title \'eye-tunes works!\'',
-      inject([EyeTunesAppComponent], (app: EyeTunesAppComponent) => {
-    expect(app.title).toEqual('eye-tunes works!');
+  it('should create the app',
+    inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+      tcb.createAsync(EyeTunesAppComponent).then((rootTC: any) => {
+        rootTC.detectChanges();
+        let rootInstance = rootTC.debugElement.children[0].componentInstance;
+        expect(rootInstance.title).toBe('blah');
+      });
   }));
 });
