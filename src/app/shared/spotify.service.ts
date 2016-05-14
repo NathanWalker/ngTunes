@@ -2,8 +2,6 @@ import {Injectable, Inject} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
-
-
 import {Store, Reducer, Action} from '@ngrx/store';
 import {Analytics, AnalyticsService} from './analytics.service';
 import {LogService} from './log.service';
@@ -67,6 +65,7 @@ export class SpotifyService extends Analytics{
   }
 
   public search(query: string, type?: string): Observable<any[]> {
+    this.track(`Search`, { label: query });
     return this.http.get(SEARCH_API + `?q=${query}&type=${type || 'track'}`)
       .map(this.extractData);
   }
