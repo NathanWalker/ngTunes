@@ -47,7 +47,7 @@ export const spotifyReducer: Reducer<ISpotifyState> = (state: ISpotifyState = in
       return changeState();
     default:
       return state;
-  }
+  };
 };
 /**
  * ngrx end --
@@ -58,11 +58,10 @@ const SEARCH_API: string = 'https://api.spotify.com/v1/search';
 @Injectable()
 export class SpotifyService extends Analytics {
   public state$: Observable<any>;
-  
+
   constructor(public analytics: AnalyticsService, private http: Http, private logger: LogService, private store: Store<any>) {
     super(analytics);
     this.category = CATEGORY;
-    
     this.state$ = store.select('spotify');
   }
 
