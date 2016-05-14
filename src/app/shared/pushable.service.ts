@@ -3,8 +3,6 @@ import {Subject} from "rxjs";
 
 @Injectable()
 export class PushableService {
-
-
   constructor(@Inject('pusherInstance') private pusherInstance) {
     this.onPushableServiceInit(pusherInstance);
   }
