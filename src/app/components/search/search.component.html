@@ -1,4 +1,14 @@
 <div class="search">
-  <input type='search' class="form-control" #searchInput (keyup.enter)="search(searchInput.value)" placeholder="Search Spotify...">
-  <button type="button" class="btn btn-success" (click)="search(searchInput.value)">Search</button>
+  <!--<input type='search' class="form-control" #searchInput (keyup.enter)="search(searchInput.value)" placeholder="Search Spotify...">
+  <button type="button" class="btn btn-success" (click)="search(searchInput.value)">Search</button>-->
+  <div class="input-group input-group-lg">
+      <input type="search" id="search-input" class="form-control" placeholder="Search Spotify..."
+        #searchInput 
+        (keyup.enter)="search(searchInput.value)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="search(searchInput.value)">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
 </div>

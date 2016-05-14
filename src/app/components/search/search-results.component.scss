@@ -18,15 +18,17 @@
 
 .item {
   padding:10px 25px;
+  border: 1px solid transparent;
   border-bottom: 1px solid #efefef;
   margin-bottom: 6px;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, .3);
   transition: background-color .5s;
   cursor: pointer;
   
   &:hover {
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, .9);
     transition: background-color .5s;
+    border: 1px solid #bbb;
   }
   
 }
@@ -35,9 +37,8 @@
   font-size: 1.3em;
 }
 
-.artist {
-  // font-size:12px;
-  // color:#999;
+.track, .artist {
+  text-shadow: 1px 1px #efefef;
 }
 
 .play-btn {
@@ -48,6 +49,7 @@
   color: #28b0ed;
   opacity: .2;
   transition: opacity .5s;
+  margin-top: 15px;
   
   &:hover {
     opacity: 1;

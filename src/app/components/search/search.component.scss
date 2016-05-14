@@ -1,10 +1,10 @@
 :host {
   display: block;
   position: fixed;
-  top:20px;
-  left:50%;
-  margin-left:-100px;
-  width:250px;
+  top: 20px;
+  left: 50%;
+  margin-left: -160px;
+  width: 250px;
   z-index: 100;
   opacity: .2;
   transition: opacity .5s;
@@ -15,11 +15,15 @@
   }
 }
 
-input {
-  width:170px;
+#search-input {
+  width: 300px;
   display: inline-block;
 }
 
 button {
   float: right;
+}
+
+input, button {
+  outline: none;
 }
