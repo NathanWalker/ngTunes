@@ -1,10 +1,12 @@
 import {Inject, Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import {Subject} from "rxjs/Rx";
+import {Store, Reducer, Action} from '@ngrx/store';
 
 @Injectable()
 export class PushableService {
-  constructor(@Inject('pusherInstance') private pusherInstance) {
-    this.onPushableServiceInit(pusherInstance);
+  constructor(@Inject('pusherInstance') private pusherInstance, private store: Store<any>) {
+    /* calls init function for custom behavior whlie protecting the constructor */
+    this.onPushableServiceInit(pusherInstance, store);
   }
 
   public getPusherObservable(channelName: string, eventName: string) {
@@ -15,10 +17,10 @@ export class PushableService {
       pusherStream$.next(data);
     });
 
-    return pusherStream$.startWith(0);
+    return pusherStream$.startWith([]);
   }
 
-  public onPushableServiceInit(pusherInstance: any): any {
+  public onPushableServiceInit(pusherInstance: any, store: Store<any>): any {
     /*  for overriding */
     return false;
   };
