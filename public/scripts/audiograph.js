@@ -102,9 +102,31 @@ var supportsMedia = !isIOS;
 
 // define the public api
 $audiograph.init = init;
+$audiograph.playNext = playNext;
+$audiograph.playPrevious = playPrevious;
+$audiograph.playIndex = playIndex;
+$audiograph.pause = pause;
+$audiograph.play = play;
 
 function init(playlists) {
   setupScene({ palettes: getPalette(), supportsMedia: supportsMedia, playlists: playlists });
+}
+
+function playNext() {
+  console.log('Audiograph: playNext() function called!');
+}
+
+function playPrevious() {
+  console.log('Audiograph: playPrevious() function called!');
+}
+function playIndex(index) {
+  console.log('Audiograph: playIndex() function called with index "' + index + '"!');
+}
+function pause() {
+  console.log('Audiograph: pause() function called!');
+}
+function play() {
+  console.log('Audiograph: play() function called!');
 }
 
 function setupPost() {
