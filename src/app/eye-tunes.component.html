@@ -6,3 +6,6 @@
 <search-results></search-results>
 <snapshot></snapshot>
 <playlist></playlist>
+<div class="toggle-play" (click)="togglePlay()">
+  <div class="fa" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen, 'fa-pause': (audiograph.state$ | async)?.playing, 'fa-play': !(audiograph.state$ | async)?.playing}"></div>
+</div>

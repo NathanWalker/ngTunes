@@ -33,6 +33,10 @@ export class EyeTunesAppComponent {
   }
 
   public toggleMenu() {
-    this.store.dispatch({type: AUDIOGRAPH_ACTIONS.TOGGLE_MENU })
+    this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.TOGGLE_MENU });
+  }
+
+  public togglePlay() {
+    this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.TOGGLE_PLAY });
   }
 }

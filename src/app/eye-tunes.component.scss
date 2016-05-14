@@ -15,17 +15,40 @@
     width: 100%;
     height: 100%;
   }
+  
+  .fa-bars {
+  
+    &:before {
+      font-size: 40px;
+    }
+    
+    &.open { 
+      &:before {
+        color: #fff;
+      }  
+    }
+  }
 }
 
-.fa-bars {
+.toggle-play {
+  position: fixed;
+  bottom:20px;
+  left:28px;
+  cursor: pointer;
+  z-index: 75;
+  cursor: pointer;
   
-  &:before {
-    font-size: 40px;
-  }
+  .fa-pause,
+  .fa-play {
   
-  &.open { 
     &:before {
-      color: #fff;
-    }  
+      font-size: 40px;
+    }
+    
+    &.open { 
+      &:before {
+        color: #fff;
+      }  
+    }
   }
 }

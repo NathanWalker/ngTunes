@@ -859,11 +859,6 @@ module.exports = function () {
     });
     
     lastTrackName = playlist.trackName;
-    
-    // Send original track name so we know what is being played
-    if (window.ga) {
-      window.ga('send', 'event', 'audio', 'queue', lastTrackName);
-    }
 
     return lastTrackName.trim();
   }

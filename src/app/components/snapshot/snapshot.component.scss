@@ -1,7 +1,7 @@
 .snapshot {
   position: fixed;
-  bottom: 32px;
-  right: 42px;
+  bottom: 20px;
+  right: 28px;
   z-index: 75;
   cursor: pointer;
   
@@ -21,7 +21,7 @@
   }
   
   &:hover {
-    .fa-camera {
+    .fa-twitter {
       &:before {
         color: purple;
       }

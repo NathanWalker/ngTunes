@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {Store, Reducer, Action} from '@ngrx/store';
+import {LogService} from './log.service';
 
 // don't have a defintion file for audiograph
 // so using an ambient variable
@@ -25,37 +26,55 @@ const CATEGORY: string = 'Audiograph';
 export interface IAudiographState {
   playlist?: Array<any>;
   menuOpen?: boolean;
+  playing?: boolean;
 }
 
-const initialState: IAudiographState = {
-  playlist: [{
+var selectedTracks: Array<any> = shuffle([{
     trackName: 'Come Together',
     artist: 'Beatles',
-      src: 'https://p.scdn.co/mp3-preview/83090a4db6899eaca689ae35f69126dbe65d94c9',
-      // TODO not sure what this is doing... 
-      // we might not be able to get meaningful numbers for the Spotify tracks
-      frequencies: [[40, 55], [40, 55]]
-    },
-    {
-      trackName: 'Drive My Car',
-      artist: 'Beatles',
-      src: 'https://p.scdn.co/mp3-preview/19defc216de4dbb07aa6ba2caf8ebdafb872a142',
-      frequencies: [[145, 5000], [145, 5000]]
-    }
-  ],
-  menuOpen: false
+    src: 'https://p.scdn.co/mp3-preview/83090a4db6899eaca689ae35f69126dbe65d94c9',
+    // TODO not sure what this is doing... 
+    // we might not be able to get meaningful numbers for the Spotify tracks
+    frequencies: [[40, 55], [40, 55]]
+  },
+  {
+    trackName: "Don't Wanna Fight",
+    artist: 'Alabama Shakes',
+    src: 'https://p.scdn.co/mp3-preview/6156cdbca425a894972c02fca9d76c0b70e001af',
+    frequencies: [[122, 6000], [122, 6000]]
+  },
+  {
+    trackName: 'Harder Better Faster Stronger',
+    artist: 'Daft Punk',
+    src: 'https://p.scdn.co/mp3-preview/92a04c7c0e96bf93a1b1b1cae7dfff1921969a7b',
+    frequencies: [[145, 5000], [145, 5000]]
+  },
+  {
+    trackName: 'Good Vibrations',
+    artist: 'Marky Mark And The Funky Bunch',
+    src: 'https://p.scdn.co/mp3-preview/d502c5fa63d28442808779a3832524b4fb1c44fa',
+    frequencies: [[50, 3000], [50, 3000]]
+  }
+]);
+
+const initialState: IAudiographState = {
+  playlist: selectedTracks,
+  menuOpen: false,
+  playing: true
 };
 
 interface IAUDIOGRAPH_ACTIONS {
   ADD_TRACK: string;
   REMOVE_TRACK: string;
   TOGGLE_MENU: string;
+  TOGGLE_PLAY: string;
 }
 
 export const AUDIOGRAPH_ACTIONS: IAUDIOGRAPH_ACTIONS = {
   ADD_TRACK: `[${CATEGORY}] ADD_TRACK`,
   REMOVE_TRACK: `[${CATEGORY}] REMOVE_TRACK`,
   TOGGLE_MENU: `[${CATEGORY}] TOGGLE_MENU`,
+  TOGGLE_PLAY: `[${CATEGORY}] TOGGLE_PLAY`
 };
 
 export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographState = initialState, action: Action) => {
@@ -78,6 +97,11 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
         action.payload = { menuOpen: !state.menuOpen };
       }
       return changeState();
+    case AUDIOGRAPH_ACTIONS.TOGGLE_PLAY:
+      if (typeof action.payload === 'undefined') {
+        action.payload = { playing: !state.playing };
+      }
+      return changeState();
     default:
       return state;
   }
@@ -92,9 +116,12 @@ export class AudiographService {
   public state$: Observable<any>;
   private _init: boolean = false;
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<any>, private logger: LogService) {
     this.state$ = store.select('audiograph');
     this.state$.subscribe((state: IAudiographState) => {
+      if (typeof state.playing !== 'undefined') {
+        this.logger.debug(`TODO - Toggling playback: ${state.playing}`);
+      }
       // since $audiograph needs same instance, don't lose reference
       this.playlist.length = 0;
       for (let item of state.playlist) {
@@ -104,12 +131,12 @@ export class AudiographService {
         this._init = true;
         this.init();
       }
-      
+
     });
   }
-  
+
   init() {
-    $audiograph.init(this.playlist);  
+    $audiograph.init(this.playlist);
 
 
     // TODO remove once Spotify search is using this service
@@ -154,10 +181,29 @@ export class AudiographService {
     //   if (playlistsToAdd.length) {
     //     var playlistToAdd = playlistsToAdd.shift();
     //     this.playlists.push(playlistToAdd);
-        
+
     //     console.log('New playlist added: ' + playlistToAdd.trackName);
     //   }
     // }, 20000);    
   }
 
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
