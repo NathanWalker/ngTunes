@@ -1,0 +1,4 @@
+<div class="search">
+  <input type='search' #searchInput (keyup.enter)="search(searchInput.value)" placeholder="Search Spotify...">
+  <button (click)="search(searchInput.value)">Search</button>
+</div>

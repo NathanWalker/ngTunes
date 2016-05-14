@@ -1,0 +1,10 @@
+<div class="search-results" *ngIf="(spotify.state$ | async)?.showResults">
+  <ul>
+    <li *ngFor="let track of (spotify.state$ | async)?.results" class="item">
+      <div class="track">{{track.name}}</div>
+      <div class="artist">{{track.artists[0].name}}</div>
+      <a class="play-btn" (click)="play(track)">Play</a>
+    </li>
+  </ul>
+  <div class="fa fa-close" (click)="close()"></div>
+</div>

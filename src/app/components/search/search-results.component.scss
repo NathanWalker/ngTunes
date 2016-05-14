@@ -1,0 +1,36 @@
+.search-results {
+  position: absolute;
+  top:50px;
+  width: 100%;
+  left:0px;
+  padding:20px;
+  background-color: rgba(0,0,0,.2);
+}
+
+ul, ul li {
+  list-style: none;
+}
+
+.item {
+  padding:10px;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 6px;
+}
+
+.artist {
+  font-size:12px;
+  color:#999;
+}
+
+.play-btn {
+  cursor: pointer;
+  color: #28b0ed;
+}
+
+.fa-close {
+  position: absolute;
+  top: 15px;
+  right: 100px;
+  display: block;
+  cursor: pointer;
+}
