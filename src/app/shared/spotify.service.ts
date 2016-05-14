@@ -3,6 +3,7 @@ import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 
+
 import {Store, Reducer, Action} from '@ngrx/store';
 import {Analytics, AnalyticsService} from './analytics.service';
 import {LogService} from './log.service';
@@ -56,11 +57,12 @@ export const spotifyReducer: Reducer<ISpotifyState> = (state: ISpotifyState = in
 const SEARCH_API: string = 'https://api.spotify.com/v1/search';
 
 @Injectable()
-export class SpotifyService extends Analytics {
+export class SpotifyService extends Analytics{
   public state$: Observable<any>;
 
-  constructor(private analytics:AnalyticsService, private http: Http, private logger: LogService, private store: Store<any>) {
-    super(analytics)
+  constructor(public analytics:AnalyticsService, private http: Http, private logger: LogService, private store: Store<any>) {
+    super(analytics);
+
     this.state$ = store.select('spotify');
   }
 
