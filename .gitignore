@@ -1,4 +1,0 @@
-node_modules
-npm-debug.log
-src/app/**/*.js
-src/app/**/*.js.map
