@@ -15,18 +15,22 @@ const CATEGORY: string = 'Spotify';
 export interface ISpotifyState {
   term?: string;
   results?: Array<any>;
+  showResults?: boolean;
 }
 
 const initialState: ISpotifyState = {
-  results: []
+  results: [],
+  showResults: false
 };
 
 interface ISPOTIFY_ACTIONS {
   RESULTS_CHANGE: string;
+  RESULTS_HIDE: string;
 }
 
 export const SPOTIFY_ACTIONS: ISPOTIFY_ACTIONS = {
-  RESULTS_CHANGE: `[${CATEGORY}] RESULTS_CHANGE`
+  RESULTS_CHANGE: `[${CATEGORY}] RESULTS_CHANGE`,
+  RESULTS_HIDE: `[${CATEGORY}] RESULTS_HIDE`
 };
 
 export const spotifyReducer: Reducer<ISpotifyState> = (state: ISpotifyState = initialState, action: Action) => {
@@ -35,6 +39,10 @@ export const spotifyReducer: Reducer<ISpotifyState> = (state: ISpotifyState = in
   };
   switch (action.type) {
     case SPOTIFY_ACTIONS.RESULTS_CHANGE:
+      action.payload.showResults = true;
+      return changeState();
+    case SPOTIFY_ACTIONS.RESULTS_HIDE:
+      action.payload = { showResults: false };
       return changeState();
     default:
       return state;
