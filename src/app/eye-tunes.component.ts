@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { LogService } from './shared/index';
+import { LogService, SnapshotService } from './shared/index';
 
 // components
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './components/search/search-results.component';
+import { SnapshotComponent } from './components/snapshot/snapshot.component';
 
 @Component({
   moduleId: module.id,
@@ -12,13 +13,14 @@ import { SearchResultsComponent } from './components/search/search-results.compo
   styleUrls: ['eye-tunes.component.css'],
   directives: [
     SearchComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    SnapshotComponent
   ]
 })
 export class EyeTunesAppComponent {
   title = 'eye-tunes works!';
   
-  constructor(private logger: LogService) {
+  constructor(private logger: LogService, private snapshot: SnapshotService) {
     logger.debug('Logging working: EyeTunesAppComponent :)');
   }
 }

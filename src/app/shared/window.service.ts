@@ -7,5 +7,6 @@ export class WindowService {
   public location: any = {};
   public alert(msg: string): void { return; }
   public confirm(msg: string): void { return; }
+  public open(url: string): void { return; }
 
 }
