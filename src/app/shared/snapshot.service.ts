@@ -52,7 +52,7 @@ export const snapshotReducer: Reducer<ISnapshotState> = (state: ISnapshotState =
 
 @Injectable()
 export class SnapshotService {
-  
+
   constructor(private logger: LogService, private win: WindowService, private store: Store<any>, @Inject('screenshot') private screenshot) {
     store.select('snapshot').subscribe((state: ISnapshotState) => {
       if (state.element) {

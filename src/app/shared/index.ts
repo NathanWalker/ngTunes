@@ -7,9 +7,9 @@ import {LogService} from './log.service';
 import {WindowService} from './window.service';
 import {SpotifyService} from './spotify.service';
 import {SnapshotService} from './snapshot.service';
-import {TwitterFeedService} from './twitter-feed.service';
 import {AnalyticsService} from './analytics.service';
 import {AudiographService} from './audiograph.service';
+import {TwitterService} from './twitter.service';
 
 export const APP_PROVIDERS: any[] = [
   ROUTER_PROVIDERS,
@@ -20,14 +20,16 @@ export const APP_PROVIDERS: any[] = [
   LogService,
   SpotifyService,
   SnapshotService,
-  TwitterFeedService,
-  AudiographService
+  AudiographService,
+  TwitterService
 ];
 
 export * from './log.service';
 export * from './window.service';
 export * from './spotify.service';
 export * from './snapshot.service';
-export * from './twitter-feed.service';
+export * from './twitter.service';
 export * from './audiograph.service';
 export * from './analytics.service';
+export * from './twitter.service';
+

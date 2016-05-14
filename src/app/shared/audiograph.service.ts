@@ -86,6 +86,7 @@ export class AudiographService {
   
   init() {
     $audiograph.init(this.playlist);
+    return;
 
     // TODO remove once Spotify search is using this service
 
