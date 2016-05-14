@@ -845,6 +845,7 @@ module.exports = function () {
 
   function queue() {
     if (queueing) return lastTrackName;
+
     queueing = true;
     var newIdx = playlistCounter++ % this.playlists.length;
     var playlist = this.playlists[newIdx];
@@ -856,17 +857,14 @@ module.exports = function () {
       queueing = false;
       player.emit('ready');
     });
-    lastTrackName = path.basename(sourceUrl, path.extname(sourceUrl));
-
+    
+    lastTrackName = playlist.trackName;
+    
     // Send original track name so we know what is being played
     if (window.ga) {
       window.ga('send', 'event', 'audio', 'queue', lastTrackName);
     }
 
-    lastTrackName = lastTrackName.replace(/\_Dolby/i, '');
-    lastTrackName = lastTrackName.replace(/\_/g, ' ');
-    lastTrackName = lastTrackName.replace('Interlude', ' (Interlude)');
-    lastTrackName = lastTrackName.replace('Fur Alina', '(Für Alina)');
     return lastTrackName.trim();
   }
 
@@ -1704,11 +1702,9 @@ module.exports = function (_ref) {
     }
     trackContainer.style.display = 'table';
 
-    var parts = name.split('-').map(function (x) {
-      return x.trim();
-    });
+
     trackNumber.textContent = 'next track';
-    trackName.textContent = parts[1];
+    trackName.textContent = name;
   }
 };
 
