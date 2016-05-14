@@ -1,10 +1,24 @@
-<div class="search-results" *ngIf="(spotify.state$ | async)?.showResults">
-  <ul>
+<div class="fa fa-close" (click)="close()"  *ngIf="(spotify.state$ | async)?.showResults"></div>
+<div class="search-results-container" *ngIf="(spotify.state$ | async)?.showResults">
+  <ul class="search-results">
     <li *ngFor="let track of (spotify.state$ | async)?.results" class="item">
-      <div class="track">{{track.name}}</div>
-      <div class="artist">{{track.artists[0].name}}</div>
-      <a class="play-btn" (click)="play(track)">Play</a>
+      <div class="row">
+        <div class="col-xs-9">
+          <div class="track">{{track.name}}</div>
+          <div class="artist">{{track.artists[0].name}}</div>
+        </div>
+        <div class="col-xs-1 control">
+          <a class="play-btn" (click)="play(track)">
+            <i class="fa fa-play"></i>
+          </a>
+        </div>
+        <div class="col-xs-1 control">
+          <a class="play-btn" (click)="play(track)">
+            <i class="fa fa-share"></i>
+          </a>
+        </div>
+      </div>
     </li>
   </ul>
-  <div class="fa fa-close" (click)="close()"></div>
 </div>
+
