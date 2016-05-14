@@ -14,7 +14,8 @@ module.exports = function(defaults) {
       '@angular/**/*.js',
       '@ngrx/**/*.js',
       'angulartics2/**/*.js',
-      'html2canvas/dist/html2canvas.js'
+      'html2canvas/dist/html2canvas.js',
+      'pusher-js/dist/web/*.js'
     ],
     sassCompiler: {
       includePaths: [
