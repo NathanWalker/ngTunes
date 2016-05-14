@@ -12,7 +12,8 @@ module.exports = function(defaults) {
       'reflect-metadata/*.js',
       'rxjs/**/*.js',
       '@angular/**/*.js',
-      '@ngrx/**/*.js'
+      '@ngrx/**/*.js',
+      'html2canvas/dist/html2canvas.js'
     ],
     sassCompiler: {
       includePaths: [

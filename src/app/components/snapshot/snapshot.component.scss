@@ -1,0 +1,11 @@
+.fa-camera {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 75;
+  cursor: pointer;
+  
+  &:before {
+    font-size: 60px;
+  }
+}
