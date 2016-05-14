@@ -35,27 +35,39 @@ var selectedTracks: Array<any> = shuffle([{
     src: 'https://p.scdn.co/mp3-preview/83090a4db6899eaca689ae35f69126dbe65d94c9',
     // TODO not sure what this is doing... 
     // we might not be able to get meaningful numbers for the Spotify tracks
-    frequencies: [[40, 55], [40, 55]]
+    frequencies: [[40, 55], [40, 55]],
+    playing: false,
+    active: false
   },
   {
     trackName: "Don't Wanna Fight",
     artist: 'Alabama Shakes',
     src: 'https://p.scdn.co/mp3-preview/6156cdbca425a894972c02fca9d76c0b70e001af',
-    frequencies: [[122, 6000], [122, 6000]]
+    frequencies: [[122, 6000], [122, 6000]],
+    playing: false,
+    active: false
   },
   {
     trackName: 'Harder Better Faster Stronger',
     artist: 'Daft Punk',
     src: 'https://p.scdn.co/mp3-preview/92a04c7c0e96bf93a1b1b1cae7dfff1921969a7b',
-    frequencies: [[145, 5000], [145, 5000]]
+    frequencies: [[145, 5000], [145, 5000]],
+    playing: false,
+    active: false
   },
   {
     trackName: 'Good Vibrations',
     artist: 'Marky Mark And The Funky Bunch',
     src: 'https://p.scdn.co/mp3-preview/d502c5fa63d28442808779a3832524b4fb1c44fa',
-    frequencies: [[50, 3000], [50, 3000]]
+    frequencies: [[50, 3000], [50, 3000]],
+    playing: false,
+    active: false
   }
 ]);
+
+// first one from randomized playlist starts playing
+selectedTracks[0].playing = true;
+selectedTracks[0].active = true;
 
 const initialState: IAudiographState = {
   playlist: selectedTracks,
@@ -68,18 +80,56 @@ interface IAUDIOGRAPH_ACTIONS {
   REMOVE_TRACK: string;
   TOGGLE_MENU: string;
   TOGGLE_PLAY: string;
+  NEXT_TRACK: string;
+  PREV_TRACK: string;
+  TARGET_TRACK: string;
 }
 
 export const AUDIOGRAPH_ACTIONS: IAUDIOGRAPH_ACTIONS = {
   ADD_TRACK: `[${CATEGORY}] ADD_TRACK`,
   REMOVE_TRACK: `[${CATEGORY}] REMOVE_TRACK`,
   TOGGLE_MENU: `[${CATEGORY}] TOGGLE_MENU`,
-  TOGGLE_PLAY: `[${CATEGORY}] TOGGLE_PLAY`
+  TOGGLE_PLAY: `[${CATEGORY}] TOGGLE_PLAY`,
+  NEXT_TRACK: `[${CATEGORY}] NEXT_TRACK`,
+  PREV_TRACK: `[${CATEGORY}] PREV_TRACK`,
+  TARGET_TRACK: `[${CATEGORY}] TARGET_TRACK`
 };
 
 export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographState = initialState, action: Action) => {
-  let changeState = () => {
+  var changeState = () => {
     return Object.assign({}, state, action.payload);
+  };
+  // resets playing states of all tracks in playlist and returns index of what the currently active track was
+  var resetPlaying = () => {
+    let currentTrackIndex = 0;
+    for (let i = 0; i < state.playlist.length; i++) {
+      if (state.playlist[i].active) {
+        currentTrackIndex = i;
+      }
+      state.playlist[i].playing = false;
+    }
+    return currentTrackIndex;
+  };
+  var changeTrack = (direction: number, index?: number) => {
+    var currentTrackIndex = resetPlaying();
+    state.playlist[currentTrackIndex].active = false;
+    if (typeof index !== 'undefined') {
+      currentTrackIndex = index;
+    } else {
+      if (direction) {
+        currentTrackIndex++;
+      } else {
+        currentTrackIndex--;
+      }
+    }
+    if (currentTrackIndex === state.playlist.length || currentTrackIndex < 0) {
+      // back to beginning
+      currentTrackIndex = 0;
+    }
+    state.playlist[currentTrackIndex].active = true;
+    state.playlist[currentTrackIndex].playing = true;
+    console.log(`Track change: ${state.playlist[currentTrackIndex].trackName}`);
+    action.payload = { playlist: [...state.playlist] };
   };
   switch (action.type) {
     case AUDIOGRAPH_ACTIONS.ADD_TRACK:
@@ -101,6 +151,15 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
       if (typeof action.payload === 'undefined') {
         action.payload = { playing: !state.playing };
       }
+      return changeState();
+    case AUDIOGRAPH_ACTIONS.NEXT_TRACK:
+      changeTrack(1);
+      return changeState();
+    case AUDIOGRAPH_ACTIONS.PREV_TRACK:
+      changeTrack(-1);
+      return changeState();
+    case AUDIOGRAPH_ACTIONS.TARGET_TRACK:
+      changeTrack(0, action.payload);
       return changeState();
     default:
       return state;

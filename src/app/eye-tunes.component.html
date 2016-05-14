@@ -6,6 +6,12 @@
 <search-results></search-results>
 <snapshot></snapshot>
 <playlist></playlist>
-<div class="toggle-play" (click)="togglePlay()">
+<div class="player-control prev-track" (click)="controlTrack(-1)">
+  <div class="fa fa-backward" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen}"></div>
+</div>
+<div class="player-control toggle-play" (click)="togglePlay()">
   <div class="fa" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen, 'fa-pause': (audiograph.state$ | async)?.playing, 'fa-play': !(audiograph.state$ | async)?.playing}"></div>
+</div>
+<div class="player-control next-track" (click)="controlTrack(1)">
+  <div class="fa fa-forward" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen}"></div>
 </div>

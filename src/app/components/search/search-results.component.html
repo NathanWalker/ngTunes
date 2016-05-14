@@ -3,20 +3,22 @@
   <ul class="search-results">
     <li *ngFor="let track of (spotify.state$ | async)?.results" class="item">
       <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-11">
           <div class="track">{{track.name}}</div>
           <div class="artist">{{track.artists[0].name}}</div>
         </div>
         <div class="col-xs-1 control">
-          <a class="play-btn" (click)="add(track)">
+          <a class="play-btn hint--left" data-hint="Add to Playlist" #playbtn (click)="add(track, playbtn)">
             <i class="fa fa-plus"></i>
           </a>
         </div>
-        <div class="col-xs-1 control">
+        <!-- disabled for now (NW) as audiograph requires track to be in playlist queue to play 
+         we may find a way around it soon -->
+        <!--<div class="col-xs-1 control">
           <a class="play-btn" (click)="play(track)">
             <i class="fa fa-play"></i>
           </a>
-        </div>
+        </div>-->
       </div>
     </li>
   </ul>

@@ -39,4 +39,9 @@ export class EyeTunesAppComponent {
   public togglePlay() {
     this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.TOGGLE_PLAY });
   }
+
+  public controlTrack(direction: number) {
+    let type = direction ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
+    this.store.dispatch({ type });
+  }
 }

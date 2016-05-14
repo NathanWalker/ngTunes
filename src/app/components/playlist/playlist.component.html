@@ -4,14 +4,14 @@
     PLAYLIST
   </div>
   <ul class="search-results">
-    <li *ngFor="let track of (audiograph.state$ | async)?.playlist" class="item">
+    <li *ngFor="let track of (audiograph.state$ | async)?.playlist; let i = index" class="item" (click)="play(i)" [ngClass]="{playing: track.playing}">
       <div class="row">
         <div class="col-xs-9">
           <div class="track">{{track.trackName}}</div>
           <div class="artist">{{track.artist}}</div>
         </div>
         <div class="col-xs-1 control">
-          <a (click)="remove(track)" data-hint="Remove" class="hint--top-left">
+          <a (click)="$event.stopPropagation(); remove(track)" data-hint="Remove" class="hint--top-left">
             <i class="fa fa-remove"></i>
           </a>
         </div>
