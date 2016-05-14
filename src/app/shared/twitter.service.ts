@@ -5,6 +5,7 @@ import {Store, Reducer, Action} from '@ngrx/store';
 
 import {LogService} from './log.service';
 import {Analytics, AnalyticsService} from './analytics.service';
+import {PushableService} from './pushable.service';
 
 // analytics
 const CATEGORY: string = 'Twitter';
@@ -59,22 +60,26 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
 // @Injectable()
 // export class TwitterService extends Analytics {
 //   public state$: Observable<any>;
-
 //   constructor(public analytics: AnalyticsService, @Inject('pusherInstance') private pusherInstance, private logger: LogService, private store: Store<any>) {
 //       super(analytics);
 //       this.category = CATEGORY;
 //       this.state$ = store.select('twitter');
 //   }
-
-
 // }
 @Injectable()
-export class TwitterService {
+export class TwitterService extends PushableService {
+  public twitterStream$: Observable<any>;
   public state$: Observable<any>;
 
-  constructor() {
-
+  onPushableServiceInit(pusherInstance: any, store: Store<any>) {
+    this.state$ = store.select('twitter');
+    this.twitterStream$ = this.getPusherObservable('AngularAttack', 'new_tweet');
   }
-
-
 }
+
+
+
+
+
+
+
