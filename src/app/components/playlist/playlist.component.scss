@@ -1,14 +1,30 @@
-.search-results-container{
+.playlist{
   position: absolute;
-  top: 0;
-  margin-top: 75px;
-  width: 30em;
-  left: calc(50% - 15em);
-  background-color: rgba(255, 255, 255, .3);
+  top: 0px;
+  width: 25em;
+  left: -30em;
+  background-color: rgb(25,118,210);
   z-index: 50;
   max-height: calc(85% - 75px);
   overflow: scroll;
+  transition: left .3s;
+  -webkit-transition: left .3s;
+  -moz-transition: left .3s;
+  padding-top: 75px;
+  min-height: 100%;
+  
+  &.open {
+    left: 0em;
+  }
 }
+
+.heading {
+  color: white;
+  padding: 0 0 10px 16px;
+  border-bottom: 1px solid #efefef;
+}
+
+
 
 .search-results {
   position: relative;
@@ -33,11 +49,12 @@
 
 .track {
   font-size: 1.3em;
+  color: lightgreen;
 }
 
 .artist {
-  // font-size:12px;
-  // color:#999;
+  font-size:12px;
+  color:lightskyblue;
 }
 
 .play-btn {

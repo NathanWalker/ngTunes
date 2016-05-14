@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
-import { LogService, SnapshotService, AudiographService } from './shared/index';
+import {Store} from '@ngrx/store';
+import {
+  LogService,
+  SnapshotService,
+  AudiographService,
+  AUDIOGRAPH_ACTIONS
+} from './shared/index';
 
 // components
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './components/search/search-results.component';
 import { SnapshotComponent } from './components/snapshot/snapshot.component';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 @Component({
   moduleId: module.id,
@@ -14,13 +21,18 @@ import { SnapshotComponent } from './components/snapshot/snapshot.component';
   directives: [
     SearchComponent,
     SearchResultsComponent,
-    SnapshotComponent
+    SnapshotComponent,
+    PlaylistComponent
   ]
 })
 export class EyeTunesAppComponent {
   title = 'eye-tunes works!';
   
-  constructor(private logger: LogService, private snapshot: SnapshotService, private audiograph: AudiographService) {
+  constructor(private logger: LogService, private store: Store<any>, private snapshot: SnapshotService, public audiograph: AudiographService) {
     logger.debug('Logging working: EyeTunesAppComponent :)');
+  }
+
+  public toggleMenu() {
+    this.store.dispatch({type: AUDIOGRAPH_ACTIONS.TOGGLE_MENU })
   }
 }

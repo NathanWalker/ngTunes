@@ -1,3 +1,8 @@
+<div class="playlist-menu" (click)="toggleMenu()">
+  <div data-hint="Playlist" class="hint--bottom-right"></div>
+  <div class="fa fa-bars" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen}"></div>
+</div>
 <search></search>
 <search-results></search-results>
 <snapshot></snapshot>
+<playlist></playlist>

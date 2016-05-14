@@ -1,11 +1,30 @@
-.fa-camera {
+.snapshot {
   position: fixed;
   bottom: 50px;
   right: 50px;
   z-index: 75;
   cursor: pointer;
   
-  &:before {
-    font-size: 60px;
+  [data-hint] {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
   }
+  
+  .fa-camera {
+    &:before {
+      font-size: 60px;
+    } 
+  }
+  
+  &:hover {
+    .fa-camera {
+      &:before {
+        color: purple;
+      }
+    }
+  }
+  
 }

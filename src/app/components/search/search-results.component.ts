@@ -28,6 +28,7 @@ export class SearchResultsComponent {
   public add(track: any) {
     let newTrack: IPlaylistTrack = {
       trackName: track.name,
+      artist: track.artists[0].name,
       src: track.preview_url,
       frequencies: [[145, 5000], [145, 5000]]
     };

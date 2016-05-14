@@ -9,6 +9,7 @@ declare var $audiograph: any;
 
 export interface IPlaylistTrack {
   trackName: string;
+  artist: string;
   // NOTE not crazy about the `src` property name
   // but using this name prevents having to make other code changes in this library 
   src: string;
@@ -23,11 +24,13 @@ const CATEGORY: string = 'Audiograph';
  */
 export interface IAudiographState {
   playlist?: Array<any>;
+  menuOpen?: boolean;
 }
 
 const initialState: IAudiographState = {
   playlist: [{
-      trackName: 'Come Together',
+    trackName: 'Come Together',
+    artist: 'Beatles',
       src: 'https://p.scdn.co/mp3-preview/83090a4db6899eaca689ae35f69126dbe65d94c9',
       // TODO not sure what this is doing... 
       // we might not be able to get meaningful numbers for the Spotify tracks
@@ -35,18 +38,24 @@ const initialState: IAudiographState = {
     },
     {
       trackName: 'Drive My Car',
+      artist: 'Beatles',
       src: 'https://p.scdn.co/mp3-preview/19defc216de4dbb07aa6ba2caf8ebdafb872a142',
       frequencies: [[145, 5000], [145, 5000]]
     }
-  ]
+  ],
+  menuOpen: false
 };
 
 interface IAUDIOGRAPH_ACTIONS {
   ADD_TRACK: string;
+  REMOVE_TRACK: string;
+  TOGGLE_MENU: string;
 }
 
 export const AUDIOGRAPH_ACTIONS: IAUDIOGRAPH_ACTIONS = {
-  ADD_TRACK: `[${CATEGORY}] ADD_TRACK`
+  ADD_TRACK: `[${CATEGORY}] ADD_TRACK`,
+  REMOVE_TRACK: `[${CATEGORY}] REMOVE_TRACK`,
+  TOGGLE_MENU: `[${CATEGORY}] TOGGLE_MENU`,
 };
 
 export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographState = initialState, action: Action) => {
@@ -56,6 +65,18 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
   switch (action.type) {
     case AUDIOGRAPH_ACTIONS.ADD_TRACK:
       action.payload = { playlist: [...state.playlist, action.payload] };
+      return changeState();
+    case AUDIOGRAPH_ACTIONS.REMOVE_TRACK:
+      action.payload = {
+        playlist: state.playlist.filter((item: IPlaylistTrack) => {
+          return item.src != action.payload.src;
+        })
+      };
+      return changeState();
+    case AUDIOGRAPH_ACTIONS.TOGGLE_MENU:
+      if (typeof action.payload === 'undefined') {
+        action.payload = { menuOpen: !state.menuOpen };
+      }
       return changeState();
     default:
       return state;
@@ -68,10 +89,12 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
 @Injectable()
 export class AudiographService {
   playlist: IPlaylistTrack[] = [];
+  public state$: Observable<any>;
   private _init: boolean = false;
 
   constructor(private store: Store<any>) {
-    store.select('audiograph').subscribe((state: IAudiographState) => {
+    this.state$ = store.select('audiograph');
+    this.state$.subscribe((state: IAudiographState) => {
       // since $audiograph needs same instance, don't lose reference
       this.playlist.length = 0;
       for (let item of state.playlist) {

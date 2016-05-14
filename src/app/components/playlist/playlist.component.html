@@ -1,0 +1,21 @@
+<!--<div class="fa fa-close" (click)="close()"></div>-->
+<div class="playlist" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen}">
+  <div class="heading">
+    PLAYLIST
+  </div>
+  <ul class="search-results">
+    <li *ngFor="let track of (audiograph.state$ | async)?.playlist" class="item">
+      <div class="row">
+        <div class="col-xs-9">
+          <div class="track">{{track.trackName}}</div>
+          <div class="artist">{{track.artist}}</div>
+        </div>
+        <div class="col-xs-1 control">
+          <a class="play-btn" (click)="remove(track)">
+            <i class="fa fa-remove"></i>
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
