@@ -37,7 +37,7 @@ describe('Component: Playlist', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-playlist></app-playlist>
+    <playlist></playlist>
   `,
   directives: [PlaylistComponent]
 })

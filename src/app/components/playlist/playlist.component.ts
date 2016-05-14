@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AudiographService, AUDIOGRAPH_ACTIONS } from '../../shared/index';
 
@@ -8,7 +8,7 @@ import { AudiographService, AUDIOGRAPH_ACTIONS } from '../../shared/index';
   templateUrl: './app/components/playlist/playlist.component.html',
   styleUrls: ['./app/components/playlist/playlist.component.css']
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent {
 
   constructor(public audiograph: AudiographService, private store: Store<any>) {
     
@@ -18,7 +18,8 @@ export class PlaylistComponent implements OnInit {
     this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.REMOVE_TRACK, payload: track });
   }
 
-  ngOnInit() {
+  public play(index: number) {
+    this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.TARGET_TRACK, payload: index });
   }
 
 }

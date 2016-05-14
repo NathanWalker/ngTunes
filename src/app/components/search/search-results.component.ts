@@ -25,7 +25,7 @@ export class SearchResultsComponent {
     this.win.alert('TODO!');
   }
 
-  public add(track: any) {
+  public add(track: any, playbtn: any) {
     let newTrack: IPlaylistTrack = {
       trackName: track.name,
       artist: track.artists[0].name,
@@ -33,6 +33,17 @@ export class SearchResultsComponent {
       frequencies: [[145, 5000], [145, 5000]]
     };
     this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.ADD_TRACK, payload: newTrack });
+    // display successfully added message
+    if (playbtn) {
+      playbtn.setAttribute('data-hint', 'Added');
+      playbtn.setAttribute('class', 'play-btn hint--left hint--always');
+      setTimeout(() => {
+        playbtn.setAttribute('class', 'play-btn hint--left');
+        setTimeout(() => {
+          playbtn.setAttribute('data-hint', 'Add to Playlist');
+        }, 800);
+      }, 1500);
+    }
   }
 
   public close() {

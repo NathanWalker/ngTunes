@@ -30,17 +30,13 @@
   }
 }
 
-.toggle-play {
+.player-control {
   position: fixed;
-  bottom:20px;
-  left:28px;
   cursor: pointer;
   z-index: 75;
-  cursor: pointer;
+  bottom:20px;
   
-  .fa-pause,
-  .fa-play {
-  
+  .fa {
     &:before {
       font-size: 40px;
     }
@@ -51,4 +47,14 @@
       }  
     }
   }
+}
+
+.prev-track {
+  left:28px;
+}
+.toggle-play {
+  left:95px;
+}
+.next-track {
+  left:155px;
 }

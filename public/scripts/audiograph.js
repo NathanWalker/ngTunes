@@ -35,7 +35,7 @@ var canvas = _createApp.canvas;
 
 var supportsDepth = true;
 if (!renderer.extensions.get('WEBGL_depth_texture')) {
-  if (window.ga) window.ga('send', 'event', 'error', 'WEBGL_depth_texture', 0);
+  // if (window.ga) window.ga('send', 'event', 'error', 'WEBGL_depth_texture', 0);
   console.warn('Requires WEBGL_depth_texture for certain post-processing effects.');
   supportsDepth = false;
 }
@@ -71,9 +71,9 @@ var mesh = null;
 var loop = createLoop(render).start();
 resize();
 window.addEventListener('resize', resize);
-window.addEventListener('touchstart', function (ev) {
-  return ev.preventDefault();
-});
+// window.addEventListener('touchstart', function (ev) {
+//   return ev.preventDefault();
+// });
 helloWorld();
 
 // ensure we are at top on iPhone in landscape
@@ -102,6 +102,7 @@ var supportsMedia = !isIOS;
 
 // define the public api
 $audiograph.init = init;
+$audiograph.init = init;  
 
 function init(playlists) {
   setupScene({ palettes: getPalette(), supportsMedia: supportsMedia, playlists: playlists });
@@ -190,6 +191,10 @@ function setupScene(_ref) {
 
   // console.log('Total palettes', palettes.length);
   var geo = geoScene({ palettes: palettes, scene: scene, envMap: envMap, loop: loop, camera: camera, renderer: renderer });
+
+  // update intro
+  var intro1b = document.querySelector('.intro-1b');
+  intro1b.innerHTML = '<p class="song-icon"></p><p>Now playing <span class="track-name-hint">' + playlists[0].trackName + '</span></p>';
 
   var initialPalette = ['#fff', '#e2e2e2'];
   geo.setPalette(initialPalette);
@@ -1533,14 +1538,14 @@ var font = 'font-family: "NotoSans", "Helvetica", sans-serif;';
 //   box-shadow: inset 0 -1px 0 #bbb;
 // `.trim();
 
-var artist = 'Pilotpriest';
+var artist = 'from Angular users via Spotify';
 
 module.exports = function (msg) {
   console.log('%c' + msg, font);
 };
 
 module.exports.intro = function (msg) {
-  console.log(['%c🎹 audiograph.xyz', '%c\t\tCreated by Matt DesLauriers (%chttp://twitter.com/mattdesl/%c)', '%c\t\tAudio by ' + artist, '%c\t\tColor palettes sourced from ColourLovers.com', '%c\t\tWith UX help from Melissa Hernandez'].join('\n'), font + ' background: #efefef; padding: 1px 5px;', font, font + ' color: #3aa3e0;', font, font, font, font);
+  console.log(['%c🎹 audiograph.xyz', '%c\t\tCreated by Matt DesLauriers (%chttp://twitter.com/mattdesl/%c)', '%c\t\tAudio chosen ' + artist, '%c\t\tColor palettes sourced from ColourLovers.com', '%c\t\tWith UX help from Melissa Hernandez'].join('\n'), font + ' background: #efefef; padding: 1px 5px;', font, font + ' color: #3aa3e0;', font, font, font, font);
 };
 
 module.exports.easterEgg = function () {
@@ -1663,11 +1668,11 @@ module.exports = function (_ref) {
       }
     });
 
-    if (isMobile) {
-      var canvas = document.querySelector('#canvas');
-      canvas.addEventListener('touchstart', beginEvent);
-      canvas.addEventListener('touchend', endEvent);
-    }
+    // if (isMobile) {
+    //   var canvas = document.querySelector('#canvas');
+    //   canvas.addEventListener('touchstart', beginEvent);
+    //   canvas.addEventListener('touchend', endEvent);
+    // }
   }
 
   function beginEvent() {
@@ -3026,7 +3031,7 @@ function inputEvents (opt) {
     pinch = createPinch(element)
     
     // don't allow simulated mouse events
-    element.addEventListener('touchstart', preventDefault)
+    // element.addEventListener('touchstart', preventDefault)
     
     if (rotateFn) touchRotate()
     if (pinchFn) touchPinch()
@@ -3595,21 +3600,21 @@ function touchPinch (target) {
   }
 
   function enable () {
-    if (enabled) return
-    enabled = true
-    target.addEventListener('touchstart', onTouchStart, false)
-    target.addEventListener('touchmove', onTouchMove, false)
-    target.addEventListener('touchend', onTouchRemoved, false)
-    target.addEventListener('touchcancel', onTouchRemoved, false)
+    // if (enabled) return
+    // enabled = true
+    // target.addEventListener('touchstart', onTouchStart, false)
+    // target.addEventListener('touchmove', onTouchMove, false)
+    // target.addEventListener('touchend', onTouchRemoved, false)
+    // target.addEventListener('touchcancel', onTouchRemoved, false)
   }
 
   function disable () {
-    if (!enabled) return
-    enabled = false
-    target.removeEventListener('touchstart', onTouchStart, false)
-    target.removeEventListener('touchmove', onTouchMove, false)
-    target.removeEventListener('touchend', onTouchRemoved, false)
-    target.removeEventListener('touchcancel', onTouchRemoved, false)
+    // if (!enabled) return
+    // enabled = false
+    // target.removeEventListener('touchstart', onTouchStart, false)
+    // target.removeEventListener('touchmove', onTouchMove, false)
+    // target.removeEventListener('touchend', onTouchRemoved, false)
+    // target.removeEventListener('touchcancel', onTouchRemoved, false)
   }
 
   function onTouchStart (ev) {
