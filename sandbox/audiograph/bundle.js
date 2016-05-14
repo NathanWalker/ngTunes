@@ -5815,6 +5815,8 @@ function createMediaSource (src, opt) {
     var done = function () {
       emitter.emit('load')
     }
+    
+    audio.crossOrigin = 'anonymous';
 
     // On most browsers the loading begins
     // immediately. However, on iOS 9.2 Safari,
