@@ -3,9 +3,13 @@ import {Subject} from "rxjs";
 
 @Injectable()
 export class PushableService {
-  constructor(@Inject('pusherInstance') private pusherInstance) {}
 
-  getPusherObservable(channelName: string, eventName: string) {
+
+  constructor(@Inject('pusherInstance') private pusherInstance) {
+    this.onPushableServiceInit(pusherInstance);
+  }
+
+  public getPusherObservable(channelName: string, eventName: string) {
     const pusherStream$ = new Subject();
     const pusherChannel = this.pusherInstance.subscribe(channelName);
 
@@ -15,4 +19,9 @@ export class PushableService {
 
     return pusherStream$.startWith(0);
   }
+
+  public onPushableServiceInit(pusherInstance: any): any {
+    /*  for overriding */
+    return false;
+  };
 }

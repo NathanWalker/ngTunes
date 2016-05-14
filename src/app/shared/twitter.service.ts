@@ -72,9 +72,8 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
 @Injectable()
 export class TwitterService extends PushableService {
   public twitterStream$: Observable<any>;
-  constructor(@Inject('pusherInstance') private pusherInstance) {
-    super(pusherInstance);
 
+  onPushableServiceInit(pusherInstance: any) {
     this.twitterStream$ = this.getPusherObservable('AngularAttack', 'new_tweet');
   }
 }
