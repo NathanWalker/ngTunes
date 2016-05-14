@@ -26,6 +26,8 @@ export * from './log.service';
 export * from './window.service';
 export * from './spotify.service';
 export * from './snapshot.service';
+export * from './twitter.service';
+export * from './audiograph.service';
 export * from './analytics.service';
 export * from './twitter.service';
 

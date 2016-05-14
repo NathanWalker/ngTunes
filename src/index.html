@@ -18,13 +18,40 @@
 
   <script src='/vendor/pusher-js/dist/web/pusher.js' type="text/javascript"></script>
   <script src="/vendor/html2canvas/dist/html2canvas.js" type="text/javascript"></script>
+  <script src="/vendor/three/three.min.js" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="style/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style/audiograph/audiograph.css">
   <link rel="stylesheet" href="style/app.css">
 </head>
 <body>
+  <canvas id="canvas"></canvas>
+  <div id="intro" class="disable-pointer">
+    <div id="intro-card">
+      <div class="intro-1a">
+        <p class="volume-icon"></p>
+        <p>Turn up your volume!</p>
+      </div>
+      <div class="intro-1b">
+        <p class="song-icon"></p>
+        <p>Now playing <span class="track-name-hint">TBD</span></p>
+      </div>
+      <div class="intro-2">
+        <p>Hold <span class="spacebar">spacebar</span> to load a new track.</p>
+      </div>
+      <div class="intro-3">
+        <p>Release <span class="spacebar">spacebar</span> to play.</p>
+      </div>
+    </div>
+  </div>
+  <div class="track-aligner">
+    <div class="track-container">
+      <div class="track-number"></div>
+      <div class="track-name"></div>
+    </div>
+  </div>
   <eye-tunes-app>Loading...</eye-tunes-app>
 
 
@@ -38,7 +65,8 @@
 
 
 
-
+    <!-- TODO remove -->
+    <script src="/scripts/audiograph.js"></script>
 
 </body>
 </html>
