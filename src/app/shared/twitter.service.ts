@@ -17,6 +17,7 @@ const TWITTER_STATUS_URL: string = `https://api.twitter.com/1.1/statuses/update.
 const TWITTER_REQUEST_TOKEN_URL: string = `https://api.twitter.com/oauth/request_token`;
 const TWITTER_LOGIN_URL: string = `https://vast-hollows-93220.herokuapp.com/login`;
 const TWITTER_UPLOAD_URL: string = `https://vast-hollows-93220.herokuapp.com/upload`;
+const TWITTER_POST_STATUS_URL: string = `https://vast-hollows-93220.herokuapp.com/poststatus`;
 const NGTUNES_REQUEST_TOKEN_URL: string = `https://vast-hollows-93220.herokuapp.com/request_token`;
 const twitterAuthKey: string = `ngTunes.twitter.auth`;
 
@@ -108,6 +109,7 @@ export class TwitterService extends PushableService {
   public twitterStream$: Observable<any>;
   public state$: Observable<any>;
   private auth: any;
+  private statusText: string;
 
   constructor(@Inject('pusherInstance') pusherInstance: any, private store: Store<any>, private ls: LocalStorageService, private logger: LogService, private win: WindowService, private http: Http) {
     super(pusherInstance);
@@ -127,15 +129,29 @@ export class TwitterService extends PushableService {
     });
   }
 
-  public uploadImage(image: any): Observable<any> {
-    var uploadBody = {
+  public uploadImage(image: any, statusText: string): Observable<any> {
+    this.statusText = statusText;
+    // var uploadBody = {
+    //     access_token: this.auth.access_token,
+    //     access_token_secret: this.auth.access_token_secret,
+    //     media_data: image };
+    // console.log('uploadBody ', uploadBody)
+    // return this.http.post(
+    //   TWITTER_UPLOAD_URL,
+    //   JSON.stringify(uploadBody),
+    //   {headers: new Headers({'Content-Type': 'application/json'})}
+    // ).map(res => res.json());
+
+    return this.postStatus();
+  }
+
+  public postStatus(): Observable<any> {
+    var postData = {
         access_token: this.auth.access_token,
         access_token_secret: this.auth.access_token_secret,
-        media_data: image };
-    console.log('uploadBody ', uploadBody)
-    return this.http.post(
-      TWITTER_UPLOAD_URL,
-      JSON.stringify(uploadBody),
+        status: this.statusText };
+    return this.http.post(TWITTER_POST_STATUS_URL,
+      JSON.stringify(postData),
       {headers: new Headers({'Content-Type': 'application/json'})}
       ).map(res => res.json());
   }

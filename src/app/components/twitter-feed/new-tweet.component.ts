@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LogService, TwitterService, TWITTER_ACTIONS, SNAPSHOT_ACTIONS, TweetModel, ITwitterState, ISnapshotState } from '../../shared/index';
+import { LogService, WindowService, TwitterService, TWITTER_ACTIONS, SNAPSHOT_ACTIONS, TweetModel, ITwitterState, ISnapshotState } from '../../shared/index';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class NewTweetComponent {
   public newTweetTxt: string;
   public sending: boolean;
   
-  constructor(private logger: LogService, public twitterService: TwitterService, private store: Store<any>, @Inject('fullpage') private fullpage) {
+  constructor(private logger: LogService, private win: WindowService, public twitterService: TwitterService, private store: Store<any>, @Inject('fullpage') private fullpage) {
     store.select('twitter').subscribe((state: ITwitterState) => {
       this.newTweetTxt = state.tweetCapText;
     });
@@ -31,8 +31,9 @@ export class NewTweetComponent {
   }
 
   private postScreenshot(image: any) {
-    this.twitterService.uploadImage(image).subscribe((response: any) => {
+    this.twitterService.uploadImage(image, this.newTweetTxt).subscribe((response: any) => {
       this.logger.debug(response);
+      this.win.alert('Tweet Posted!');
     });
   }
 }

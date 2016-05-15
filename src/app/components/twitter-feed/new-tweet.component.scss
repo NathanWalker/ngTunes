@@ -13,10 +13,14 @@
   -webkit-transition: right .3s;
   -moz-transition: right .3s;
   margin-top: 75px;
-  padding-top: 15px;
+  padding: 15px;
   min-height: 100%;
   
   &.open {
     right: 0em;
+  }
+  
+  textarea {
+    margin-bottom:15px;
   }
 }
