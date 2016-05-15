@@ -207,6 +207,26 @@ export class AudiographService {
 
   init() {
     $audiograph.init(this.playlist);
+    
+    $audiograph.addListener('playNext', function() {      
+      console.log('Audiograph: playNext() function called!');
+    });
+
+    $audiograph.addListener('playPrevious', function() {
+      console.log('Audiograph: playPrevious() function called!');
+    });
+
+    $audiograph.addListener('playIndex', function(index) {
+      console.log('Audiograph: playIndex() function called with index "' + index + '"!');
+    });
+
+    $audiograph.addListener('pause', function() {
+      console.log('Audiograph: pause() function called!');
+    });
+
+    $audiograph.addListener('play', function() {
+      console.log('Audiograph: play() function called!');
+    });
   }
 
 }
