@@ -8,5 +8,7 @@ export class WindowService {
   public alert(msg: string): void { return; }
   public confirm(msg: string): void { return; }
   public open(url: string): void { return; }
+  public innerWidth: number;
+  public innerHeight: number;
 
 }

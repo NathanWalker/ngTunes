@@ -641,7 +641,8 @@ function createApp() {
   // Our WebGL renderer with alpha and device-scaled
   var renderer = new THREE.WebGLRenderer(assign({
     canvas: document.querySelector('#canvas'),
-    antialias: true // default enabled
+    antialias: false, // default enabled
+    preserveDrawingBuffer: true 
   }, opt));
   renderer.setPixelRatio(dpr);
 
