@@ -13,6 +13,8 @@ import {
   twitterReducer
 } from './app/shared/index';
 
+declare var window: any;
+
 if (environment.production) {
   enableProdMode();
 }
@@ -20,10 +22,10 @@ if (environment.production) {
 bootstrap(EyeTunesAppComponent, [
   HTTP_PROVIDERS,
   provide(WindowService, { useValue: window }),
-  provide('screenshot', { useValue: (<any>window).Canvas2Image }),
-  // provide('screenshot', { useValue: (<any>window).html2canvas }),
-  // provide('fullpage', { useValue: (<any>window).document.body }),
-  provide('fullpage', { useValue: (<any>window).document.getElementById('canvas') }),
+  provide('screenshot', { useValue: window.Canvas2Image }),
+  // provide('screenshot', { useValue: window.html2canvas }),
+  // provide('fullpage', { useValue: window.document.body }),
+  provide('fullpage', { useValue: window.document.getElementById('canvas') }),
   provide('pusherInstance', {
     useFactory: () => {
       return new (<any>window).Pusher('130b662bea2d14b75a32');

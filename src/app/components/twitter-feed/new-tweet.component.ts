@@ -21,7 +21,7 @@ export class NewTweetComponent {
           break;
         }
       }
-      this.newTweetTxt = `Listening to '${activeTrack.trackName}' on #ngTunes #ngAttackArt @AngularAttack`;
+      this.newTweetTxt = `Listening to '${activeTrack.trackName}' on #ngTunes #ngAttackArt @AngularAttack http://48angles.2016.angularattack.io/`;
     });
     store.select('snapshot').subscribe((state: ISnapshotState) => {
       if (state.image) {
