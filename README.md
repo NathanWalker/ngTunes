@@ -28,7 +28,7 @@ Credits and libs used:
 * [Angular CLI](https://cli.angular.io/)
 * [Infowrap](http://www.infowrap.com/2159/overview?token=5c3064c7-4bab-455c-b133-c5bbaee31f0f)
   * productivity tool to keep everyone on same page
-  * 'Files' area contains animated gifs of some progress along the way
+  * Files area contains animated gifs of some progress along the way
 * [angulartics2](https://github.com/angulartics/angulartics2)
 * [@ngrx/store](https://github.com/ngrx/store)
 * [pusher-js](https://github.com/pusher/pusher-js)
