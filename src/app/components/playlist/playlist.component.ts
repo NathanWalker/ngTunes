@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AudiographService, AUDIOGRAPH_ACTIONS } from '../../shared/index';
 
@@ -8,10 +8,19 @@ import { AudiographService, AUDIOGRAPH_ACTIONS } from '../../shared/index';
   templateUrl: './app/components/playlist/playlist.component.html',
   styleUrls: ['./app/components/playlist/playlist.component.css']
 })
-export class PlaylistComponent {
-
+export class PlaylistComponent implements OnInit {
+  volumeLevel: number = 0;
   constructor(public audiograph: AudiographService, private store: Store<any>) {
     
+  }
+  
+  ngOnInit(){
+    setInterval(() => {
+      this.volumeLevel++;
+      if (this.volumeLevel > 2) {
+        this.volumeLevel = 0;
+      }
+    }, 100);
   }
 
   public remove(track: any) {

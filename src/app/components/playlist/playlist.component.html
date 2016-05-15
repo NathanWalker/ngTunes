@@ -1,12 +1,12 @@
-<!--<div class="fa fa-close" (click)="close()"></div>-->
 <div class="playlist" [ngClass]="{open: (audiograph.state$ | async)?.menuOpen}">
   <div class="heading">
     PLAYLIST
   </div>
-  <ul class="search-results">
+  <ul class="playlist-list">
     <li *ngFor="let track of (audiograph.state$ | async)?.playlist; let i = index" class="item" (click)="play(i)" [ngClass]="{playing: track.playing}">
       <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-11">
+          <i *ngIf="track.playing" class="playing-indicator fa" [ngClass]="{'fa-volume-off': volumeLevel===0, 'fa-volume-down': volumeLevel===1, 'fa-volume-up': volumeLevel===2}"></i>
           <div class="track">{{track.trackName}}</div>
           <div class="artist">{{track.artist}}</div>
         </div>

@@ -1,3 +1,5 @@
+@import "variables";
+
 .search-results-container{
   position: absolute;
   top: 0;
@@ -38,7 +40,7 @@
 }
 
 .track, .artist {
-  text-shadow: 1px 1px #efefef;
+  text-shadow: $textshadow;
 }
 
 .play-btn {

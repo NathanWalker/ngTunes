@@ -1,16 +1,19 @@
+@import "variables";
+
 .playlist{
   position: absolute;
   top: 0px;
   width: 25em;
   left: -30em;
-  background-color: rgb(25,118,210);
+  background-color: rgba(255,255,255, .4);
   z-index: 50;
   max-height: calc(85% - 75px);
   overflow: scroll;
   transition: left .3s;
   -webkit-transition: left .3s;
   -moz-transition: left .3s;
-  padding-top: 75px;
+  margin-top: 75px;
+  padding-top: 15px;
   min-height: 100%;
   
   &.open {
@@ -19,22 +22,22 @@
 }
 
 .heading {
-  color: white;
+  // color: white;
   padding: 0 0 10px 16px;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #bbb;
 }
 
-.fa-remove {
-  &:before {
-    color:#fff;
-  }
+// .fa-remove {
+//   &:before {
+//     color:#fff;
+//   }
   
-  &:hover {
-    &:before {
-      color:#999;
-    }
-  }
-}
+//   &:hover {
+//     &:before {
+//       color:#999;
+//     }
+//   }
+// }
 
 .row {
   position: relative;
@@ -46,7 +49,7 @@
   top:10px;
 }
 
-.search-results {
+.playlist-list {
   position: relative;
   // top:75px;
   // margin-top: 75px;
@@ -54,73 +57,60 @@
 
 .track {
   font-size: 1.3em;
-  color: lightgreen;
 }
 
-.artist {
-  font-size:12px;
-  color:lightskyblue;
+.track, .artist {
+  text-shadow: $textshadow;
 }
 
 .item {
   padding:10px 25px;
+  border: 1px solid transparent;
+  transition: border .5s;
   border-bottom: 1px solid #efefef;
   background-color: rgba(255, 255, 255, 0);
   transition: background-color .5s;
   cursor: pointer;
+  position: relative;
+  
+  .playing-indicator {
+    position: absolute;
+    left: -5px;
+    top: 15px;
+  }
   
   &:hover {
     background-color: rgba(255, 255, 255, .7);
+    transition: background-color .5s;
+    border: 1px solid #bbb;
+    transition: border .5s;
     
-    .track {
-      color:#444;
-    }
-    
-    .artist {
-      color:rgb(25,118,210);
-    }
-  }
-  
-  &.playing {
-    background-color: lightgreen;
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, .4);
-    }
-    
-    .track {
-      color:#444;
-    }
-    
-    .artist {
-      color:rgb(25,118,210);
+    .control {
+      opacity: 1;
+      transition: opacity .5s;
     }
   }
   
-}
-
-.play-btn {
+  // &.playing {
+  //   background-color: lightgreen;
+    
+  //   &:hover {
+  //     background-color: rgba(255, 255, 255, .4);
+  //   }
+    
+  //   .track {
+  //     color:#444;
+  //   }
+    
+  //   .artist {
+  //     color:rgb(25,118,210);
+  //   }
+  // }
+  
 }
 
 .control {
   cursor: pointer;
-  color: #28b0ed;
-  opacity: .4;
+  opacity: .1;
   transition: opacity .5s;
-  
-  &:hover {
-    opacity: 1;
-    transition: opacity .5s;
-  }
-}
-
-.close-container {
-  position: relative;
-}
-.fa-close {
-  position: absolute;
-  top: 65px;
-  left: calc(50% + 15em);
-  display: block;
-  cursor: pointer;
 }
