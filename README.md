@@ -22,3 +22,23 @@ The team that brings ngTunes to you is
 - The work horse - James Churchill ([@SmashDev](http://twitter.com/SmashDev))
 - The energy - Sean Larkin ([@TheLarkInn](http://twitter.com/TheLarkInn))
 - The other guy - Mike Brocchi ([@brocco](http://twitter.com/brocco))
+
+Credits and libs used:
+
+* [Angular CLI](https://cli.angular.io/)
+* [Infowrap](http://www.infowrap.com/2159/overview?token=5c3064c7-4bab-455c-b133-c5bbaee31f0f)
+  * productivity tool to keep everyone on same page
+  * 'Files' area contains animated gifs of some progress along the way
+* [angulartics2](https://github.com/angulartics/angulartics2)
+* [@ngrx/store](https://github.com/ngrx/store)
+* [pusher-js](https://github.com/pusher/pusher-js)
+* [three.js](http://threejs.org/)
+* [audiograph.xyz](https://github.com/mattdesl/audiograph.xyz)
+  * Huge thanks to [Matt DesLauriers](https://github.com/mattdesl) for permission to customize his sweet visualizer!
+* [angular2-color-picker](https://github.com/Alberplz/angular2-color-picker)
+* [Spotify web api](https://developer.spotify.com/web-api/)
+* [Twitter api](https://dev.twitter.com/rest/public)
+* [Font Awesome](http://fontawesome.io/)
+* [hint.css](http://kushagragour.in/lab/hint/)
+* [Bootstrap](http://getbootstrap.com/)
+
