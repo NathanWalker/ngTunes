@@ -1,5 +1,5 @@
 import {Injectable, Inject} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Store, Reducer, Action} from '@ngrx/store';
@@ -118,7 +118,16 @@ export class TwitterService extends PushableService {
   }
 
   public uploadImage(image: any): Observable<any> {
-    return this.http.post(TWITTER_UPLOAD_URL, JSON.stringify({ access_token: this.auth.access_token, access_token_secret: this.auth.access_token_secret, media_data: image })).map(res => res.json());
+    var uploadBody = {
+        access_token: this.auth.access_token,
+        access_token_secret: this.auth.access_token_secret,
+        media_data: image };
+    console.log('uploadBody ', uploadBody)
+    return this.http.post(
+      TWITTER_UPLOAD_URL,
+      JSON.stringify(uploadBody),
+      {headers: new Headers({'Content-Type': 'application/json'})}
+      ).map(res => res.json());
   }
 
   private startTweet() {
