@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {
   LogService,
@@ -25,7 +25,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
     PlaylistComponent
   ]
 })
-export class EyeTunesAppComponent {
+export class EyeTunesAppComponent implements AfterViewInit {
   title = 'eye-tunes works!';
   
   constructor(private logger: LogService, private store: Store<any>, private snapshot: SnapshotService, public audiograph: AudiographService) {
@@ -43,5 +43,17 @@ export class EyeTunesAppComponent {
   public controlTrack(direction: number) {
     let type = direction > 0 ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
     this.store.dispatch({ type });
+  }
+
+  ngAfterViewInit() {
+    if (typeof document !== 'undefined') {
+      setTimeout(() => {
+        document.getElementById('loader').setAttribute('class', 'wrapper zoom-out');
+        setTimeout(() => {
+          var el:any = document.getElementById('loader');
+          el.parentNode.removeChild(el);
+        }, 1000);
+      }, 600);
+    }
   }
 }
