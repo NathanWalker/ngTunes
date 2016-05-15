@@ -128,6 +128,7 @@ function playNext() {
   sceneObject.audio.queue();
   sceneObject.audio.playQueued();
   sceneObject.geo.nextPalette();
+  loop.start();
   this.emit('playNext');
 }
 
@@ -135,6 +136,7 @@ function playPrevious() {
   sceneObject.audio.queuePrevious();
   sceneObject.audio.playQueued();
   sceneObject.geo.nextPalette();
+  loop.start();
   this.emit('playPrevious');
 }
 
@@ -142,6 +144,7 @@ function playIndex(index) {
   sceneObject.audio.queue(index);
   sceneObject.audio.playQueued();
   sceneObject.geo.nextPalette();
+  loop.start();
   this.emit('playIndex', index);
 }
 
