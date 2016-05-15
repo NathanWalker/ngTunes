@@ -190,7 +190,7 @@ export class AudiographService {
     this.state$ = store.select('audiograph');
     this.state$.subscribe((state: IAudiographState) => {
       if (typeof state.playing !== 'undefined') {
-        this.logger.debug(`TODO - Toggling playback: ${state.playing}`);
+        this.logger.debug(`Toggling playback: ${state.playing}`);
       }
       // since $audiograph needs same instance, don't lose reference
       this.playlist.length = 0;

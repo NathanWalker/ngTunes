@@ -77,7 +77,9 @@ export class SnapshotService {
   public snap(el: any) {
     let width = this.win.innerWidth;
     let height = this.win.innerHeight;
-      // var context = canvas.getContext('experimental-webgl', {preserveDrawingBuffer: true});
     this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: this.screenshot.convertToPNG(el, width, height).src } });
+    // this.screenshot(el).then((canvas: any) => {
+    //   this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: canvas.toDataURL("image/png")} })
+    // })
   }
 }
