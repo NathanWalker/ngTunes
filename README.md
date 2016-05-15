@@ -1,48 +1,22 @@
-# This is your [AngularAttack](https://www.angularattack.com) 2016 Repo
+# ngTunes
 
-This repo is the start of your AngularAttack 2016 entry. It contains the simple [Angular2 starter](https://angular.io/docs/ts/latest/quickstart.html) files.
+ngTunes is a music visualization application written using angular 2. 
+Users can search Spotify for tracks to customize a playlist to sample 
+their favorite tunes. While listening and viewing their playlist users 
+can also tweet about what they're rocking as well as set what others 
+are enjoying.
 
-**DO NOT MAKE ANY CODE CHECKINS TO THIS REPOSITORY BEFORE THE COMPETITION OFFICIALLY BEGINS.**
+A mashup of many technologies was used to bring this experience to users. 
+The project was scaffolded up using the angular CLI and utilized to build 
+the application. The visualization engine is a port of audiograph which 
+was brought in as it's own angular 2 component. The music catalog takes 
+advantage of Spotify's API for searching and track playback. Twitter's 
+API was used for both the ability to retrieve related tweets via live 
+stream and for posting to the user's timeline if they choose to share. 
+(Add screenshot info if we get that working too)
 
-**DOING SO COULD DISQUALIFY YOU.**
-
-
-However, before the competition starts, there are some things we encourage you to do to get prepared for the competition.
-
-
-### Step 1) Get Your Local Environment setup
-
-Clone this repo locally, and make sure all your team members have access to it.
-
-* Install the latest [Node / NPM](https://nodejs.org).
-
-* `git clone git@github.com:rumblex/angularattack2016-48angles.git`
-
-* `cd angularattack2016-48angles`
-
-* `npm install`
-
-* `npm start` will start the server locally to test that everything is running correctly
-
-
-### Step 2) Deploy Your App
-
-While you can't make any checkins before the comp, what you **can** do right now is deploy this sample app to [Surge](https://surge.sh) (our competition hosting provider).
-
-* `npm install -g surge`
-
-* `surge .`
-
-Note: please do not remove the `CNAME` file, as that tells it where to deploy to.
-
-If you receive an error message `"You do not have permission to publish to 48angles.2016.angularattack.io"`, it might mean another team member has already deployed your project to Surge. Ask them to run the next step to give you access.
-
-### Step 3) Add Your Team Members to Surge
-
-* `surge . --add sean.larkin@cuw.edu,james@smashdev.com,walkerrunpdx@gmail.com`
-
-
-### Step 4) Wait til competition starts
-
-It begins at exactly [May 14 at 00:00 UTC](https://www.wolframalpha.com/input/?i=May+14,+2016+0:00+UTC). Once the competition starts,   you can write over this project.
-
+The team that brings ngTunes to you is
+- The dreamer - Nathan Walker ([@wwwalkerrun](http://twitter.com/wwwalkerrun))
+- The work horse - James Churchill ([@SmashDev](http://twitter.com/SmashDev))
+- The energy - Sean Larkin ([@TheLarkInn](http://twitter.com/TheLarkInn))
+- The other guy - Mike Brocchi ([@brocco](http://twitter.com/brocco))
