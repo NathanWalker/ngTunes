@@ -132,7 +132,7 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
     state.playlist[currentTrackIndex].active = true;
     state.playlist[currentTrackIndex].playing = true;
     console.log(`Track change: ${state.playlist[currentTrackIndex].trackName}`);
-    action.payload = { playlist: [...state.playlist] };
+    action.payload = { playlist: [...state.playlist], playing: true };
   };
   switch (action.type) {
     case AUDIOGRAPH_ACTIONS.ADD_TRACK:
@@ -162,11 +162,9 @@ export const audiographReducer: Reducer<IAudiographState> = (state: IAudiographS
       return changeState();
     case AUDIOGRAPH_ACTIONS.NEXT_TRACK:
       changeTrack(1);
-      $audiograph.playNext();
       return changeState();
     case AUDIOGRAPH_ACTIONS.PREV_TRACK:
       changeTrack(-1);
-      $audiograph.playPrevious();
       return changeState();
     case AUDIOGRAPH_ACTIONS.TARGET_TRACK:
       $audiograph.playIndex(action.payload);
@@ -208,24 +206,26 @@ export class AudiographService {
   init() {
     $audiograph.init(this.playlist);
     
-    $audiograph.addListener('playNext', function() {      
-      console.log('Audiograph: playNext() function called!');
+    $audiograph.addListener('playNext', () => {     
+      this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.NEXT_TRACK });
+      // console.log('Audiograph: playNext() function called!');
     });
 
-    $audiograph.addListener('playPrevious', function() {
-      console.log('Audiograph: playPrevious() function called!');
+    $audiograph.addListener('playPrevious', () => {
+      this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.PREV_TRACK });
+      // console.log('Audiograph: playPrevious() function called!');
     });
 
-    $audiograph.addListener('playIndex', function(index) {
-      console.log('Audiograph: playIndex() function called with index "' + index + '"!');
+    $audiograph.addListener('playIndex', (index) => {
+      // console.log('Audiograph: playIndex() function called with index "' + index + '"!');
     });
 
-    $audiograph.addListener('pause', function() {
-      console.log('Audiograph: pause() function called!');
+    $audiograph.addListener('pause', () => {
+      // console.log('Audiograph: pause() function called!');
     });
 
-    $audiograph.addListener('play', function() {
-      console.log('Audiograph: play() function called!');
+    $audiograph.addListener('play', () => {
+      // console.log('Audiograph: play() function called!');
     });
   }
 

@@ -7,6 +7,8 @@ import {
   AUDIOGRAPH_ACTIONS
 } from './shared/index';
 
+declare var $audiograph: any;
+
 // components
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './components/search/search-results.component';
@@ -44,8 +46,13 @@ export class EyeTunesAppComponent implements AfterViewInit {
   }
 
   public controlTrack(direction: number) {
-    let type = direction > 0 ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
-    this.store.dispatch({ type });
+    // let type = direction > 0 ? AUDIOGRAPH_ACTIONS.NEXT_TRACK : AUDIOGRAPH_ACTIONS.PREV_TRACK;
+    // this.store.dispatch({ type });
+    if (direction > 0) {
+      $audiograph.playNext();
+    } else {
+      $audiograph.playPrevious();
+    }
   }
 
   ngAfterViewInit() {
