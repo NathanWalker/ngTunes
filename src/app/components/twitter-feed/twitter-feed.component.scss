@@ -1,13 +1,24 @@
 .twitter-feed {
   background: rgba(255, 255, 255, .7);
-  z-index: 50;
-  width: 30em;
-  top: 0;
+  position: absolute;
+  top: 0px;
+  width: 25em;
+  right: -30em;
   bottom: 0;
   position: fixed;
-  right: 0;
   cursor: pointer;
   z-index: 75;
+  max-height: calc(85% - 75px);
+  transition: right .3s;
+  -webkit-transition: right .3s;
+  -moz-transition: right .3s;
+  margin-top: 75px;
+  padding-top: 15px;
+  min-height: 100%;
+
+  &.open {
+    right: 0em;
+  }
 }
 
 .feed {
@@ -16,17 +27,7 @@
 }
 
 .item {
-  border: 1px solid rgba(75, 75, 75, .7);
-  border-radius: 5px;
-  margin: 2px;
-  &:not(::first-line) {
-    animation: slide-up .8s  cubic-bezier(0.4, 0, 0.2, 1) 500ms;
-  }
-}
-
-@-webkit-keyframes slide-up {
-  0% { -webkit-transform: translateY(100%); }
-  100% { -webkit-transform: translateY(0); }
+  // border: 1px solid rgba(75, 75, 75, .7);
 }
 
 .text{

@@ -1,9 +1,18 @@
 import {Injectable, Inject, forwardRef} from '@angular/core';
 import {WindowService} from './window.service';
 
+interface IKEYS {
+  twitterAuth: string;
+}
+
+const PREFIX: string = `ngTunes.`;
+
 @Injectable()
 export class LocalStorageService {
-
+  public static KEYS: IKEYS = {
+    twitterAuth: `${PREFIX}twitterAuth`
+  };
+  
   constructor(@Inject(forwardRef(() => WindowService)) private win: WindowService) {
     
   }

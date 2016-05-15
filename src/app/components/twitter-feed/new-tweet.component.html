@@ -1,0 +1,4 @@
+<div class="new-tweet" [ngClass]="{open: (twitterService.state$ | async)?.composeOpen}">
+  <textarea #tweet [(ngModel)]="newTweetTxt" class="form-control"></textarea>
+  <button type="submit" (click)="prepareTweet(tweet.value)" [disabled]="sending" class="btn btn-primary">Tweet</button>
+</div>
