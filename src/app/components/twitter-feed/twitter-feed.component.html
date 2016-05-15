@@ -1,5 +1,4 @@
 <div class="twitter-feed">
-  <h1>Tweets</h1>
   <ul class="feed">
     <li *ngFor="let tweet of (twitterService.state$ | async)?.tweetFeed" class="item">
       <div class="text">
