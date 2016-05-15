@@ -114,3 +114,31 @@
   opacity: .1;
   transition: opacity .5s;
 }
+
+@media (max-width: 375px) {
+  .playlist{
+    width: 22em;
+  }
+  
+  .track {
+    font-size:1.2em;
+  }
+  
+  .artist {
+    font-size:.9em;
+  }
+}
+
+@media (max-width: 350px) {
+  .playlist{
+    width: 19em;
+  }
+  
+  .track {
+    font-size:1em;
+  }
+  
+  .artist {
+    font-size:.6em;
+  }
+}

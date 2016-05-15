@@ -58,3 +58,35 @@ a {
   color: white;
   font-size: 1.3em;
 }
+
+@media (max-width: 375px) {
+  .twitter-feed{
+    width: 22em;
+    
+    .text {
+      width:95%;
+    }
+    
+    .bottom-border {
+      width:96%;
+    }
+  }
+ 
+}
+
+@media (max-width: 350px) {
+  .twitter-feed{
+    width: 19em;
+    
+    .text {
+      width:95%;
+      font-size:1em;
+    }
+    
+    .bottom-border {
+      width:96%;
+      font-size:.8em;
+    }
+  }
+ 
+}

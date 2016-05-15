@@ -1619,8 +1619,8 @@ module.exports = function () {
 
   var introHint = isMobile ? intro1a : intro1b;
   if (isMobile) {
-    intro2.innerHTML = '<span class="spacebar">tap</span> and hold to load a new track';
-    intro3.innerHTML = 'Release <span class="spacebar">tap</span> to play';
+    intro2.innerHTML = '';// '<span class="spacebar">tap</span> and hold to load a new track';
+    intro3.innerHTML = '';//'Release <span class="spacebar">tap</span> to play';
   } else {
     intro2.innerHTML = 'Hold <span class="spacebar">-&gt;</span> to load a new track';
     intro3.innerHTML = 'Release <span class="spacebar">-&gt;</span> to play';

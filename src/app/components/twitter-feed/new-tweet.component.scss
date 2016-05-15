@@ -22,5 +22,27 @@
   
   textarea {
     margin-bottom:15px;
+    height: 180px;
+    font-size: 22px;
   }
+}
+
+@media (max-width: 375px) {
+  .new-tweet {
+    width:22em;
+  }
+ 
+}
+
+@media (max-width: 350px) {
+  .new-tweet{
+    width: 19em;
+
+    
+    textarea {
+      height:120px;
+      font-size:1em;
+    }
+  }
+ 
 }

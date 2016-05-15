@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { LogService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index';
 
@@ -8,9 +9,10 @@ import { LogService, SpotifyService, SPOTIFY_ACTIONS } from '../../shared/index'
   styleUrls: ['./app/components/search/search.component.css']
 })
 export class SearchComponent {
-
+  public twitterState$: Observable<any>
+  
   constructor(private logger: LogService, private store: Store<any>, private spotify: SpotifyService) {
-    
+    this.twitterState$ = store.select('twitter');
   }
 
   public search(value: any) {

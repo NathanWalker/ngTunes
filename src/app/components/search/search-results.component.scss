@@ -69,3 +69,65 @@
   display: block;
   cursor: pointer;
 }
+
+@media (max-width: 500px) {
+  .fa-close {
+        top: 75px;
+    z-index: 1000;
+    left: calc(50% + 9em);
+  }
+  .search-results-container{
+    width: 21em;
+    left: calc(50% - 11em);
+    
+    .item {
+      .col-xs-11 {
+        width:87.666667%;
+      }
+    }
+  }
+ 
+}
+
+@media (max-width: 375px) {
+  .fa-close {
+        top: 75px;
+    z-index: 1000;
+    left: calc(50% + 9em);
+  }
+  .search-results-container{
+    width: 21em;
+    left: calc(50% - 11em);
+    
+    .item {
+      .col-xs-11 {
+        width:87.666667%;
+      }
+    }
+  }
+ 
+}
+
+@media (max-width: 350px) {
+  .fa-close {
+    left: calc(50% + 8em);
+  }
+  .search-results-container{
+        width: 18em;
+    left: calc(50% - 9em);
+    
+    .item {
+      .col-xs-11 {
+        width:87.666667%;
+      }
+      
+      .track {
+        font-size:1em;
+        
+      }
+      .artist {
+        font-size: .6em;
+      }
+    }
+  }
+}

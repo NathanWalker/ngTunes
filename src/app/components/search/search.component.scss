@@ -27,3 +27,77 @@ button {
 input, button {
   outline: none;
 }
+
+@media (max-width: 500px) {
+  :host {
+    margin-left: -132px;
+  }
+  
+  
+  #search-input {
+    width: 214px;
+  }
+  
+  .search {
+    &.twitterOpen {
+      .input-group-lg {
+        width:190px;
+        #search-input {
+          width:152px;
+        }
+      }
+      
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  :host {
+    margin-left: -110px;
+  }
+  
+  .input-group-lg {
+    width: 185px;
+    #search-input {
+      width: 166px;
+    }
+  }
+  
+  .search {
+    &.twitterOpen {
+      .input-group-lg {
+        width:150px;
+        #search-input {
+          width:112px;
+        }
+      }
+      
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  :host {
+    margin-left: -85px;
+    width:180px;
+  }
+  
+  .input-group-lg {
+    width: 165px;
+    #search-input {
+      width: 118px;
+    }
+  }
+  
+  .search {
+    &.twitterOpen {
+      .input-group-lg {
+        width:112px;
+        #search-input {
+          width:66px;
+        }
+      }
+      
+    }
+  }
+}

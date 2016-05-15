@@ -15,6 +15,8 @@ export interface IPlaylistTrack {
   // but using this name prevents having to make other code changes in this library 
   src: string;
   frequencies: any[][];
+  playing?: boolean;
+  active?: boolean;
 }
 
 // analytics

@@ -67,3 +67,28 @@
   }
 
 }
+
+@media (max-width: 500px) {
+  .snapshot {
+    top:28px;
+    
+    
+    .fa-twitter {
+    
+      &:before {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .new-tweet {
+    top: 27px;
+    right: 82px;
+    
+    .fa {
+      &:before {
+        font-size: 30px;
+      }
+    }
+  }
+}

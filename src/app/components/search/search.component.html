@@ -1,4 +1,4 @@
-<div class="search">
+<div class="search" [ngClass]="{twitterOpen: (twitterState$ | async)?.menuOpen}">
   <!--<input type='search' class="form-control" #searchInput (keyup.enter)="search(searchInput.value)" placeholder="Search Spotify...">
   <button type="button" class="btn btn-success" (click)="search(searchInput.value)">Search</button>-->
   <div class="input-group input-group-lg">

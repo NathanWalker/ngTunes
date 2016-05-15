@@ -73,3 +73,49 @@
 .next-track {
   left:155px;
 }
+
+@media (max-width: 500px) {
+  .playlist-menu {
+    top:28px;
+    left:28px;
+    
+    .fa-bars {
+    
+      &:before {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .player-control {
+    bottom:20px;
+    
+    .fa {
+      &:before {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .prev-track {
+    left:28px;
+  }
+  .toggle-play {
+    left:95px;
+  }
+  .next-track {
+    left:155px;
+  }
+}
+
+@media (max-width: 375px) {
+  .player-control {
+    bottom:42px;
+  }
+}
+
+// @media (max-width: 350px) {
+//   .player-control {
+//     bottom:102px;
+//   }
+// }

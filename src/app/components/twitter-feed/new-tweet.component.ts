@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LogService, WindowService, TwitterService, TWITTER_ACTIONS, SNAPSHOT_ACTIONS, TweetModel, ITwitterState, ISnapshotState } from '../../shared/index';
+import { LogService, WindowService, TwitterService, TWITTER_ACTIONS, SNAPSHOT_ACTIONS, TweetModel, IAudiographState, IPlaylistTrack, ISnapshotState } from '../../shared/index';
 
 
 @Component({
@@ -13,8 +13,15 @@ export class NewTweetComponent {
   public sending: boolean;
   
   constructor(private logger: LogService, private win: WindowService, public twitterService: TwitterService, private store: Store<any>, @Inject('fullpage') private fullpage) {
-    store.select('twitter').subscribe((state: ITwitterState) => {
-      this.newTweetTxt = state.tweetCapText;
+    store.select('audiograph').subscribe((state: IAudiographState) => {
+      let activeTrack: IPlaylistTrack;
+      for (let item of state.playlist) {
+        if (item.active) {
+          activeTrack = item;
+          break;
+        }
+      }
+      this.newTweetTxt = `Listening to '${activeTrack.trackName}' on #ngTunes #ngAttackArt @AngularAttack`;
     });
     store.select('snapshot').subscribe((state: ISnapshotState) => {
       if (state.image) {
