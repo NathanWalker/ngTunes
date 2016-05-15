@@ -10,5 +10,6 @@ export class WindowService {
   public open(url: string): void { return; }
   public innerWidth: number;
   public innerHeight: number;
+  public localStorage: any;
 
 }

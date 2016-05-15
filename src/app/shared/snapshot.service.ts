@@ -66,10 +66,7 @@ export class SnapshotService {
       if (state.element || state.image) {
         if (state.element) {
           this.snap(state.element);
-        } else if (state.image) {
-          this.win.open(state.image);
-        }
-        this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_CLEAR });
+        } 
       }
     });
   }

@@ -5,6 +5,7 @@ import {Angulartics2} from 'angulartics2';
 import {Angulartics2Segment} from 'angulartics2/src/providers/angulartics2-segment';
 import {LogService} from './log.service';
 import {WindowService} from './window.service';
+import {LocalStorageService} from './localstorage.service';
 import {SpotifyService} from './spotify.service';
 import {SnapshotService} from './snapshot.service';
 import {AnalyticsService} from './analytics.service';
@@ -19,6 +20,7 @@ export const APP_PROVIDERS: any[] = [
   Angulartics2Segment,
   AnalyticsService,
   LogService,
+  LocalStorageService,
   SpotifyService,
   SnapshotService,
   AudiographService,
