@@ -11,7 +11,7 @@ import {
   TWITTER_ACTIONS
 } from './shared/index';
 
-declare var $audiograph: any;
+declare var $audiograph: any, location: any;
 
 // components
 import { SearchComponent } from './components/search/search.component';
@@ -81,7 +81,8 @@ export class EyeTunesAppComponent implements AfterViewInit {
 
     if (this.loc) {
       this.logger.debug(this.loc.path());
-      let parts = this.loc.path().split('?');
+      // let parts = this.loc.path().split('?');
+      let parts = location.href.split('?');
       if (parts.length > 1) {
         if (parts[0].indexOf('callback') > -1) {
           parts = parts[1].split('&');
