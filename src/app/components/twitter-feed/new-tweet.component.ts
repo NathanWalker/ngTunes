@@ -40,7 +40,11 @@ export class NewTweetComponent {
   private postScreenshot(image: any) {
     this.twitterService.uploadImage(image, this.newTweetTxt).subscribe((response: any) => {
       this.logger.debug(response);
-      this.win.alert('Tweet Posted!');
+      this.twitterService.postStatus(response.media_id_string).subscribe((response: any) => {
+        this.win.alert('Tweet Posted!');
+        this.sending = false;
+      });
+      
     });
   }
 }

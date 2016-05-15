@@ -4,7 +4,7 @@
   width: 18em;
   right:0px;
   background-color: rgba(255,255,255, .4);
-  z-index: 50;
+  z-index: 10000;
   height: 350px;
   padding:12px;
   overflow: scroll;
@@ -14,6 +14,7 @@
   
   input {
     width:60px;
+        cursor: pointer;
   }
   
   &.open {

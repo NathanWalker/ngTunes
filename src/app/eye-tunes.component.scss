@@ -67,7 +67,7 @@
 .picker-btn {
   position: fixed;
   cursor: pointer;
-  z-index: 75;
+  z-index: 1000000;
   bottom:20px;
   right:20px;
   opacity: .7;

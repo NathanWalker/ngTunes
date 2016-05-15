@@ -72,8 +72,25 @@ export class SnapshotService {
   }
 
   public snap(el: any) {
-    let width = 100;//this.win.innerWidth;
-    let height = 100;//this.win.innerHeight;
+    let width = this.win.innerWidth;
+    let height = this.win.innerHeight;
+    var maxWidth = 800; // Max width for the image
+    var maxHeight = 600;    // Max height for the image
+    var ratio = 0;  // Used for aspect ratio
+
+    // Check if the current width is larger than the max
+    if(width > maxWidth){
+        ratio = maxWidth / width;   // get ratio for scaling image
+        height = height * ratio;    // Reset height to match scaled image
+        width = width * ratio;    // Reset width to match scaled image
+    }
+
+    // Check if current height is larger than max
+    if(height > maxHeight){
+        ratio = maxHeight / height; // get ratio for scaling image
+        width = width * ratio;    // Reset width to match scaled image
+        height = height * ratio;    // Reset height to match scaled image
+    }
     this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: this.screenshot.convertToPNG(el, width, height).src } });
     // this.screenshot(el).then((canvas: any) => {
     //   this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: canvas.toDataURL("image/png")} })

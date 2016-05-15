@@ -131,25 +131,26 @@ export class TwitterService extends PushableService {
 
   public uploadImage(image: any, statusText: string): Observable<any> {
     this.statusText = statusText;
-    // var uploadBody = {
-    //     access_token: this.auth.access_token,
-    //     access_token_secret: this.auth.access_token_secret,
-    //     media_data: image };
-    // console.log('uploadBody ', uploadBody)
-    // return this.http.post(
-    //   TWITTER_UPLOAD_URL,
-    //   JSON.stringify(uploadBody),
-    //   {headers: new Headers({'Content-Type': 'application/json'})}
-    // ).map(res => res.json());
+    var uploadBody = {
+        access_token: this.auth.access_token,
+        access_token_secret: this.auth.access_token_secret,
+        media_data: image };
+    return this.http.post(
+      TWITTER_UPLOAD_URL,
+      JSON.stringify(uploadBody),
+      {headers: new Headers({'Content-Type': 'application/json'})}
+    ).map(res => res.json());
 
-    return this.postStatus();
+    // return this.postStatus();
   }
 
-  public postStatus(): Observable<any> {
+  public postStatus(media_ids: any): Observable<any> {
     var postData = {
         access_token: this.auth.access_token,
         access_token_secret: this.auth.access_token_secret,
-        status: this.statusText };
+        status: this.statusText,
+        media_ids: media_ids
+    };
     return this.http.post(TWITTER_POST_STATUS_URL,
       JSON.stringify(postData),
       {headers: new Headers({'Content-Type': 'application/json'})}
