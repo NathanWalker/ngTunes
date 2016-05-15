@@ -227,6 +227,11 @@ export class AudiographService {
     $audiograph.addListener('play', () => {
       // console.log('Audiograph: play() function called!');
     });
+
+    $audiograph.addListener('newPalette', (palette) => {
+      console.log('Audiograph: the palette has been changed to - Background color = ' + 
+        palette.backgroundColor + ', Foreground colors = ' + palette.foregroundColors);
+    });
   }
 
 }
