@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { LogService, SNAPSHOT_ACTIONS } from '../../shared/index';
+import { LogService, SNAPSHOT_ACTIONS, TWITTER_ACTIONS } from '../../shared/index';
 
 @Component({
   selector: 'snapshot',
@@ -8,12 +9,16 @@ import { LogService, SNAPSHOT_ACTIONS } from '../../shared/index';
   styleUrls: ['./app/components/snapshot/snapshot.component.css']
 })
 export class SnapshotComponent {
-
-  constructor(private logger: LogService, private store: Store<any>, @Inject('fullpage') private fullpage) {
-    
+  public twitterState$: Observable<any>;
+  constructor(private logger: LogService, private store: Store<any>) {
+    this.twitterState$ = store.select('twitter');
   }
 
-  public snap() {
-    this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_NOW, payload: { element: this.fullpage } })
+  public toggleTweets() {
+    this.store.dispatch({ type: TWITTER_ACTIONS.TOGGLE_MENU });
+  }
+
+  public newTweet() {
+    this.store.dispatch({ type: TWITTER_ACTIONS.NEW_TWEET });
   }
 }

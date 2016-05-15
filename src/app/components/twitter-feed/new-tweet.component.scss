@@ -1,0 +1,22 @@
+.new-tweet {
+  background: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 0px;
+  width: 25em;
+  right: -30em;
+  bottom: 0;
+  position: fixed;
+  cursor: pointer;
+  z-index: 75;
+  max-height: calc(85% - 75px);
+  transition: right .3s;
+  -webkit-transition: right .3s;
+  -moz-transition: right .3s;
+  margin-top: 75px;
+  padding-top: 15px;
+  min-height: 100%;
+  
+  &.open {
+    right: 0em;
+  }
+}

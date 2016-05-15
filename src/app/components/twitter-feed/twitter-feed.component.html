@@ -1,4 +1,4 @@
-<div class="twitter-feed">
+<div class="twitter-feed" [ngClass]="{open: (twitterService.state$ | async)?.menuOpen}">
   <ul class="feed">
     <li *ngFor="let tweet of (twitterService.state$ | async)?.tweetFeed" class="item">
       <div class="text">

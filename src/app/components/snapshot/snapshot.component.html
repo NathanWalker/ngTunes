@@ -1,4 +1,8 @@
-<div class="snapshot" (click)="snap()">
-  <div data-hint="Tweet Screenshot!" class="hint--top-left"></div>
+<div class="new-tweet" (click)="newTweet()" [ngClass]="{open: (twitterState$ | async)?.menuOpen}">
+  <div data-hint="New Tweet" class="hint--bottom-left"></div>
+  <div class="fa fa-plus-circle"></div>
+</div>
+<div class="snapshot" (click)="toggleTweets()">
+  <div data-hint="View Twitter Stream" class="hint--bottom-left"></div>
   <div class="fa fa-twitter"></div>
 </div>

@@ -29,6 +29,7 @@ export const APP_PROVIDERS: any[] = [
 
 export * from './log.service';
 export * from './window.service';
+export * from './localstorage.service';
 export * from './spotify.service';
 export * from './snapshot.service';
 export * from './twitter.service';
