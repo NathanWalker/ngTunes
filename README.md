@@ -1,3 +1,5 @@
+![ngTunes](graphics/ngtunes-logo-sm.jpg)
+
 # ngTunes
 
 ngTunes is a music visualization application written using angular 2. 
