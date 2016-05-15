@@ -1,6 +1,6 @@
 
 // public api object in the global namespace
-var $audiograph = {};
+var $audiograph = null;
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -20,6 +20,8 @@ var EffectComposer = require('./lib/EffectComposer');
 var BloomPass = require('./lib/BloomPass');
 var SSAOShader = require('./lib/shader/SSAOShader');
 var createAudio = require('./lib/audio');
+
+var EventEmitter = require('events').EventEmitter;
 
 var white = new THREE.Color('white');
 var opt = { antialias: false, alpha: false, stencil: false };
@@ -69,6 +71,7 @@ var time = 0;
 var mesh = null;
 
 var loop = createLoop(render).start();
+
 resize();
 window.addEventListener('resize', resize);
 // window.addEventListener('touchstart', function (ev) {
@@ -100,6 +103,9 @@ setupPost();
 
 var supportsMedia = !isIOS;
 
+// create the public object as an event emitter instance
+$audiograph = new EventEmitter();
+
 // define the public api
 $audiograph.init = init;
 $audiograph.playNext = playNext;
@@ -108,28 +114,50 @@ $audiograph.playIndex = playIndex;
 $audiograph.pause = pause;
 $audiograph.play = play;
 
+var sceneObject = null;
+
 function init(playlists) {
-  setupScene({ palettes: getPalette(), supportsMedia: supportsMedia, playlists: playlists });
+  sceneObject = setupScene({ 
+    palettes: getPalette(), 
+    supportsMedia: supportsMedia, 
+    playlists: playlists 
+  });
 }
 
 function playNext() {
-  console.log('Audiograph: playNext() function called!');
+  sceneObject.audio.queue();
+  sceneObject.audio.playQueued();
+  sceneObject.geo.nextPalette();
+  loop.start();
+  this.emit('playNext');
 }
 
 function playPrevious() {
-  console.log('Audiograph: playPrevious() function called!');
+  sceneObject.audio.queuePrevious();
+  sceneObject.audio.playQueued();
+  sceneObject.geo.nextPalette();
+  loop.start();
+  this.emit('playPrevious');
 }
 
 function playIndex(index) {
-  console.log('Audiograph: playIndex() function called with index "' + index + '"!');
+  sceneObject.audio.queue(index);
+  sceneObject.audio.playQueued();
+  sceneObject.geo.nextPalette();
+  loop.start();
+  this.emit('playIndex', index);
 }
 
 function pause() {
-  console.log('Audiograph: pause() function called!');
+  sceneObject.audio.pause();
+  loop.stop();
+  this.emit('pause');
 }
 
 function play() {
-  console.log('Audiograph: play() function called!');
+  sceneObject.audio.play();
+  loop.start();
+  this.emit('play');
 }
 
 function setupPost() {
@@ -224,9 +252,10 @@ function setupScene(_ref) {
   geo.setPalette(initialPalette);
   document.body.style.background = '#F9F9F9';
 
+  // here's where the audio player is getting created
   var audio = createAudio();
   audio.playlists = playlists;
-  
+
   var started = false;
   var time = 0;
   var switchPalettes = false;
@@ -235,7 +264,7 @@ function setupScene(_ref) {
   var paletteInterval = void 0;
 
   var whitePalette = ['#fff', '#d3d3d3', '#a5a5a5'];
-  var interactions = setupInteractions({ whitePalette: whitePalette, scene: scene, controls: controls, audio: audio, camera: camera, geo: geo });
+  var interactions = setupInteractions({ whitePalette: whitePalette, scene: scene, controls: controls, audio: audio, camera: camera, geo: geo, loop: loop });
 
   var introAutoGeo = setInterval(function () {
     geo.nextGeometry();
@@ -246,7 +275,7 @@ function setupScene(_ref) {
   if (isMobile) {
     audio.skip();
   } else {
-    trackName = audio.queue();
+    trackName = audio.queue(0);
     displayTrackName(trackName);
 
     audio.once('ready', function () {
@@ -317,6 +346,8 @@ function setupScene(_ref) {
       readyForPaletteChange = true;
     }, 2000);
   }
+  
+  return { audio: audio, geo: geo };
 }
 
 function displayTrackName(trackName) {
@@ -332,7 +363,7 @@ function helloWorld() {
   log.intro();
 }
 
-},{"./lib/BloomPass":2,"./lib/EffectComposer":3,"./lib/app":4,"./lib/audio":5,"./lib/geoScene":8,"./lib/intro":10,"./lib/isMobile":11,"./lib/log":12,"./lib/palette":13,"./lib/setupInteractions":14,"./lib/shader/SSAOShader":15,"new-array":32,"raf-loop":60,"right-now":66}],2:[function(require,module,exports){
+},{"./lib/BloomPass":2,"./lib/EffectComposer":3,"./lib/app":4,"./lib/audio":5,"./lib/geoScene":8,"./lib/intro":10,"./lib/isMobile":11,"./lib/log":12,"./lib/palette":13,"./lib/setupInteractions":14,"./lib/shader/SSAOShader":15,"events":26,"new-array":32,"raf-loop":60,"right-now":66}],2:[function(require,module,exports){
 'use strict';
 
 
@@ -736,7 +767,6 @@ module.exports = function () {
 
   var audioCache = {};
   var audioTimeCache = {};
-  var playlistCounter = 0;
 
   var audioContext = createAudioContext();
   setTimeout(function () {
@@ -787,18 +817,39 @@ module.exports = function () {
   player.beats = newArray(NUM_BINS, 0);
 
   player.queue = queue;
+  player.queuePrevious = queuePrevious;
   player.playQueued = playQueued;
   player.skip = skip;
+  player.play = play;
+  player.pause = pause;
+  player.currentIndex = 0;
+
   return player;
 
   function skip() {
-    playlistCounter++;
+    var newIndex = player.currentIndex + 1;
+    
+    if (newIndex > player.playlists.length - 1) {
+      newIndex = 0;
+    }
+    
+    player.currentIndex = newIndex;
   }
 
   function resume() {
     if (audioContext.state === 'suspended' && typeof audioContext.resume === 'function') {
       audioContext.resume();
     }
+  }
+
+  function play() {
+    if (!playingAudio) return;
+    playingAudio.element.play();    
+  }
+  
+  function pause() {
+    if (!playingAudio) return;
+    playingAudio.element.pause();    
   }
 
   function createEffectNode(output) {
@@ -846,7 +897,7 @@ module.exports = function () {
       if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
     }
   }
-
+  
   function update(dt) {
     if (!playingAudio) return;
     analyserNode.getByteTimeDomainData(freqArray);
@@ -886,14 +937,24 @@ module.exports = function () {
     }
   }
 
-  function queue() {
+  function queue(newIndex) {
     if (queueing) return lastTrackName;
-
+    
     queueing = true;
-    var newIdx = playlistCounter++ % this.playlists.length;
-    var playlist = this.playlists[newIdx];
+    
+    if (newIndex === undefined) {
+      newIndex = player.currentIndex + 1;
+      
+      if (newIndex > player.playlists.length - 1) {
+        newIndex = 0;
+      }
+    }
+    
+    var playlist = player.playlists[newIndex];
     var frequencyBand = playlist.frequencies;
     var sourceUrl = playlist.src;
+
+    player.currentIndex = newIndex;
 
     loadAudio(playlist, frequencyBand, function (audio) {
       queuedAudio = audio;
@@ -904,6 +965,18 @@ module.exports = function () {
     lastTrackName = playlist.trackName;
 
     return lastTrackName.trim();
+  }
+  
+  function queuePrevious() {
+    var newIndex = player.currentIndex - 1;
+    
+    if (newIndex < 0) {
+      newIndex = player.playlists.length - 1;
+    }
+    
+    console.log(newIndex);
+    
+    return queue(newIndex);
   }
 
   function playQueued() {
@@ -979,8 +1052,6 @@ module.exports = function () {
     audioCache[urlKey] = audio;
     audio.urlKey = urlKey;
     
-    // TODO test play and pause methods on the audio object
-    
     audio.on('error', function (err) {
       console.error(err);
     });
@@ -1010,6 +1081,7 @@ module.exports = function () {
       loadingAudio = false;
     });
     audio.node.connect(analyserNode);
+
     return audio;
   }
 };
@@ -1094,6 +1166,8 @@ module.exports = function (complex) {
 },{"three-simplicial-complex":74,"unlerp":123}],8:[function(require,module,exports){
 'use strict';
 
+// MODULE geoScene
+
 var random = require('random-float');
 var geoPieceRing = require('geo-piecering');
 var geoArc = require('geo-arc');
@@ -1154,7 +1228,6 @@ module.exports = function (_ref) {
   var paletteIndex = 0;
   var colors = palettes[paletteIndex].slice();
 
-  //
   var meshes = [];
   setBackground(colors.shift());
 
@@ -1175,7 +1248,7 @@ module.exports = function (_ref) {
   var tmpColor = new THREE.Color();
   tmpVec.copy(camera.position);
   camera.localToWorld(tmpVec);
-
+  
   loop.on('tick', function (dt) {
     time += dt / 1000;
     meshes.forEach(function (m) {
@@ -1399,6 +1472,8 @@ module.exports = function (_ref) {
     document.body.style.background = color;
   }
 };
+
+// END MODULE geoScene
 
 },{"./createComplex":7,"./isMobile":11,"array-shuffle":16,"geo-arc":27,"geo-piecering":28,"random-float":65,"tweenr":76}],9:[function(require,module,exports){
 module.exports=[["#300030","#480048","#601848","#C04848","#F07241"],["#E8DDCB","#CDB380","#036564","#033649","#031634"],["#343838","#005F6B","#008C9E","#00B4CC","#00DFFC"],["#B9D7D9","#668284","#2A2829","#493736","#7B3B3B"],["#F0D8A8","#3D1C00","#86B8B1","#F2D694","#FA2A00"],["#5D4157","#838689","#A8CABA","#CAD7B2","#EBE3AA"],["#351330","#424254","#64908A","#E8CAA4","#CC2A41"],["#413E4A","#73626E","#B38184","#F0B49E","#F7E4BE"],["#FE4365","#FC9D9A","#F9CDAD","#C8C8A9","#83AF9B"],["#490A3D","#BD1550","#E97F02","#F8CA00","#8A9B0F"],["#00A0B0","#6A4A3C","#CC333F","#EB6841","#EDC951"]]
@@ -1668,7 +1743,8 @@ module.exports = function (_ref) {
   var camera = _ref.camera;
   var controls = _ref.controls;
   var geo = _ref.geo;
-
+  var loop = _ref.loop;
+  
   var previousPalette = geo.getFullPalette();
   var ret = new EventEmitter();
   ret.keyDown = false;
@@ -1684,10 +1760,12 @@ module.exports = function (_ref) {
   return ret;
 
   function enable() {
+
     log.easterEgg();
+
     window.addEventListener('keydown', function (ev) {
       if (ev.keyCode === 39 && !ret.keyDown) {
-        beginEvent();
+        beginNextEvent();
         return false;
       } else if (ev.keyCode === 67 && !ret.easterEggDown) {
         // ret.easterEggDown = true;
@@ -1699,7 +1777,32 @@ module.exports = function (_ref) {
     });
     window.addEventListener('keyup', function (ev) {
       if (ev.keyCode === 39 && ret.keyDown) {
-        endEvent();
+        endNextEvent();
+        return false;
+      } else if (ev.keyCode === 67 && ret.easterEggDown) {
+        // ret.easterEggDown = false;
+        // controls.position[0] = 0;
+        // controls.position[2] = 0;
+        // controls.distance = originalDistance;
+        // return false;
+      }
+    });
+
+    window.addEventListener('keydown', function (ev) {
+      if (ev.keyCode === 37 && !ret.keyDown) {
+        beginPreviousEvent();
+        return false;
+      } else if (ev.keyCode === 67 && !ret.easterEggDown) {
+        // ret.easterEggDown = true;
+        // controls.position[0] = 10;
+        // controls.position[2] = 0;
+        // controls.distance = 5;
+        // return false;
+      }
+    });
+    window.addEventListener('keyup', function (ev) {
+      if (ev.keyCode === 37 && ret.keyDown) {
+        endPreviousEvent();
         return false;
       } else if (ev.keyCode === 67 && ret.easterEggDown) {
         // ret.easterEggDown = false;
@@ -1712,12 +1815,12 @@ module.exports = function (_ref) {
 
     // if (isMobile) {
     //   var canvas = document.querySelector('#canvas');
-    //   canvas.addEventListener('touchstart', beginEvent);
-    //   canvas.addEventListener('touchend', endEvent);
+    //   canvas.addEventListener('touchstart', beginNextEvent);
+    //   canvas.addEventListener('touchend', endNextEvent);
     // }
   }
 
-  function beginEvent() {
+  function beginNextEvent() {
     ret.emit('start');
     previousPalette = geo.getFullPalette();
     geo.setPalette(whitePalette);
@@ -1728,15 +1831,15 @@ module.exports = function (_ref) {
       isLoaded = true;
     });
     var name = audio.queue();
-    setupName(name);
+    setupName('next track', name);
     audio.effect = 1;
     geo.globalSpeed = 0.75;
     controls.position[1] = -1;
   }
 
-  function endEvent() {
+  function endNextEvent() {
     ret.keyDown = false;
-    setupName(null);
+    setupName(null, null);
     geo.setPalette(previousPalette);
     audio.playQueued();
     audio.effect = 0;
@@ -1745,16 +1848,58 @@ module.exports = function (_ref) {
     geo.globalSpeed = 1;
     geo.nextPalette();
     ret.emit('stop', isLoaded);
+    
+    // make sure that the loop is started
+    loop.start();
+    
+    // HACK have the public audiograph object send the event
+    $audiograph.emit('playNext');
   }
 
-  function setupName(name) {
+  function beginPreviousEvent() {
+    ret.emit('start');
+    previousPalette = geo.getFullPalette();
+    geo.setPalette(whitePalette);
+    ret.keyDown = true;
+
+    isLoaded = false;
+    audio.once('ready', function () {
+      isLoaded = true;
+    });
+    var name = audio.queuePrevious();
+    setupName('previous track', name);
+    audio.effect = 1;
+    geo.globalSpeed = 0.75;
+    controls.position[1] = -1;
+  }
+
+  function endPreviousEvent() {
+    ret.keyDown = false;
+    setupName(null, null);
+    geo.setPalette(previousPalette);
+    audio.playQueued();
+    audio.effect = 0;
+    controls.position[1] = 1;
+    controls.distance = originalDistance;
+    geo.globalSpeed = 1;
+    geo.nextPalette();
+    ret.emit('stop', isLoaded);
+    
+    // make sure that the loop is started
+    loop.start();
+    
+    // HACK have the public audiograph object send the event
+    $audiograph.emit('playPrevious');
+  }
+
+  function setupName(num, name) {
     if (!name) {
       trackContainer.style.display = 'none';
       return;
     }
     trackContainer.style.display = 'table';
 
-    trackNumber.textContent = 'next track';
+    trackNumber.textContent = num;
     trackName.textContent = name;
   }
 };
@@ -2253,6 +2398,8 @@ function uncamelize (string) {
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+// MODULE events
+
 function EventEmitter() {
   this._events = this._events || {};
   this._maxListeners = this._maxListeners || undefined;
@@ -2530,6 +2677,8 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
+
+// END MODULE events
 
 },{}],27:[function(require,module,exports){
 module.exports = geoArc;
@@ -4097,12 +4246,16 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],60:[function(require,module,exports){
+  
+// MODULE raf-loop
+  
 var inherits = require('inherits')
 var EventEmitter = require('events').EventEmitter
 var now = require('right-now')
 var raf = require('raf')
 
 module.exports = Engine
+
 function Engine(fn) {
     if (!(this instanceof Engine)) 
         return new Engine(fn)
@@ -4135,12 +4288,17 @@ Engine.prototype.stop = function() {
 }
 
 Engine.prototype.tick = function() {
+    if (!this.running) return;
+  
     this._frame = raf(this._tick)
     var time = now()
     var dt = time - this.last
     this.emit('tick', dt)
     this.last = time
 }
+
+// END MODULE raf-loop
+
 },{"events":26,"inherits":61,"raf":62,"right-now":64}],61:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
