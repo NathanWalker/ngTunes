@@ -11,6 +11,7 @@ import {ISnapshotState, SNAPSHOT_ACTIONS} from './snapshot.service';
 import {PushableService} from './pushable.service';
 import {TweetModel} from './tweet.model';
 
+const TWITTER_MEDIA_URL: string = `https://upload.twitter.com/1.1/media/upload.json`;
 const TWITTER_STATUS_URL: string = `https://api.twitter.com/1.1/statuses/update.json`;
 const TWITTER_AUTH_URL: string = `https://api.twitter.com/oauth/authorize?oauth_token=Z6eEdO8MOmk394WozF5oKyuAv855l4Mlqo7hhlSLik`;
 const twitterAuthKey: string = `ngTunes.twitter.auth`;
@@ -76,7 +77,7 @@ export class TwitterService extends PushableService {
     store.select('snapshot').subscribe((state: ISnapshotState) => {
       if (state.image) {
         this.startTweet();
-        
+
       }
     });
   }
@@ -84,7 +85,7 @@ export class TwitterService extends PushableService {
   private startTweet() {
     let auth = this.ls.getItem(twitterAuthKey);
     if (auth) {
-      
+
     } else {
       this.http.get(TWITTER_AUTH_URL).map(res => res.json()).subscribe((result: any) => {
         this.logger.debug(result);

@@ -2,9 +2,9 @@
   position: fixed;
   bottom: 20px;
   right: 28px;
-  z-index: 75;
+  z-index: 1000;
   cursor: pointer;
-  
+
   [data-hint] {
     position: absolute;
     top: 0px;
@@ -12,14 +12,14 @@
     width: 100%;
     height: 100%;
   }
-  
+
   .fa-twitter {
     &:before {
       font-size: 60px;
       color: #1da1f2;
-    } 
+    }
   }
-  
+
   &:hover {
     .fa-twitter {
       &:before {
@@ -27,5 +27,5 @@
       }
     }
   }
-  
+
 }
