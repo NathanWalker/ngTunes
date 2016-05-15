@@ -2,7 +2,18 @@
   <h1>Tweets</h1>
   <ul class="feed">
     <li *ngFor="let tweet of (twitterService.state$ | async)?.tweetFeed" class="item">
-      {{tweet | json}}
+      <div class="text">
+        {{tweet.text.text}}
+      </div>
+      <div class="bottom-border">
+        <a href="https://twitter.com/{{tweet.text.user.screen_name}}/status/{{tweet.text.id_str}}" target="_blank">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <div class="author">
+          {{tweet.text.user.name}}
+          (@{{tweet.text.user.screen_name}})
+        </div>
+      </div>
     </li>
   </ul>
 </div>
