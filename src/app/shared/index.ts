@@ -10,6 +10,7 @@ import {SnapshotService} from './snapshot.service';
 import {AnalyticsService} from './analytics.service';
 import {AudiographService} from './audiograph.service';
 import {TwitterService} from './twitter.service';
+import {TweetModel} from './tweet.model';
 
 export const APP_PROVIDERS: any[] = [
   ROUTER_PROVIDERS,
@@ -32,4 +33,4 @@ export * from './twitter.service';
 export * from './audiograph.service';
 export * from './analytics.service';
 export * from './twitter.service';
-
+export * from './tweet.model';

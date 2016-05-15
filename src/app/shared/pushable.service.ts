@@ -6,7 +6,6 @@ import {Store, Reducer, Action} from '@ngrx/store';
 export class PushableService {
   constructor(@Inject('pusherInstance') private pusherInstance, private store: Store<any>) {
     /* calls init function for custom behavior whlie protecting the constructor */
-    this.onPushableServiceInit(pusherInstance, store);
   }
 
   public getPusherObservable(channelName: string, eventName: string) {
@@ -17,11 +16,6 @@ export class PushableService {
       pusherStream$.next(data);
     });
 
-    return pusherStream$.startWith([]);
+    return pusherStream$.startWith(undefined);
   }
-
-  public onPushableServiceInit(pusherInstance: any, store: Store<any>): any {
-    /*  for overriding */
-    return false;
-  };
 }

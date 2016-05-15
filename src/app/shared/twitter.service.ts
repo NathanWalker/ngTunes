@@ -6,6 +6,7 @@ import {Store, Reducer, Action} from '@ngrx/store';
 import {LogService} from './log.service';
 import {Analytics, AnalyticsService} from './analytics.service';
 import {PushableService} from './pushable.service';
+import {TweetModel} from './tweet.model';
 
 // analytics
 const CATEGORY: string = 'Twitter';
@@ -16,7 +17,7 @@ const CATEGORY: string = 'Twitter';
 export interface ITwitterState {
   tweetCapDataUrl?: string;
   tweetCapText?: string;
-  tweetFeed?: Array<any>;
+  tweetFeed?: TweetModel[];
   showTweetFeed?: boolean;
 }
 
@@ -45,6 +46,8 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
   switch (action.type) {
     case TWITTER_ACTIONS.TWEET_FEED_CHANGE:
       action.payload.showTweetFeed = true;
+      action.payload = { tweetFeed: [...state.tweetFeed, action.payload] };
+      changeState();
     case TWITTER_ACTIONS.TWEET_FEED_HIDE:
       action.payload.showTweetFeed = false;
       return changeState();
@@ -53,27 +56,15 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
   }
 };
 
-/**
- * ngrx end --
- */
-
-// @Injectable()
-// export class TwitterService extends Analytics {
-//   public state$: Observable<any>;
-//   constructor(public analytics: AnalyticsService, @Inject('pusherInstance') private pusherInstance, private logger: LogService, private store: Store<any>) {
-//       super(analytics);
-//       this.category = CATEGORY;
-//       this.state$ = store.select('twitter');
-//   }
-// }
 @Injectable()
 export class TwitterService extends PushableService {
   public twitterStream$: Observable<any>;
   public state$: Observable<any>;
 
-  onPushableServiceInit(pusherInstance: any, store: Store<any>) {
+  constructor(@Inject('pusherInstance') pusherInstance: any, store: Store<any>) {
+    super(pusherInstance, store);
     this.state$ = store.select('twitter');
-    this.twitterStream$ = this.getPusherObservable('AngularAttack', 'new_tweet');
+    this.twitterStream$ = this.getPusherObservable('angularattacktweets', 'new_tweet');
   }
 }
 
