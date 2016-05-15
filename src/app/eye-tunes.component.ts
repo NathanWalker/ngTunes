@@ -20,6 +20,7 @@ import { SnapshotComponent } from './components/snapshot/snapshot.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { TwitterFeedComponent } from './components/twitter-feed/twitter-feed.component';
 import { NewTweetComponent } from './components/twitter-feed/new-tweet.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
 @Component({
   moduleId: module.id,
@@ -32,13 +33,15 @@ import { NewTweetComponent } from './components/twitter-feed/new-tweet.component
     SnapshotComponent,
     PlaylistComponent,
     TwitterFeedComponent,
-    NewTweetComponent
+    NewTweetComponent,
+    ColorPickerComponent
   ]
 })
 export class EyeTunesAppComponent implements AfterViewInit {
 
   title = 'eye-tunes works!';
-
+  public colorPickerOpen: boolean;
+  
   constructor(private logger: LogService, private store: Store<any>, private win: WindowService, private snapshot: SnapshotService, public audiograph: AudiographService, private loc: Location, private ls: LocalStorageService) {
     logger.debug('Logging working: EyeTunesAppComponent :)');
   }
@@ -49,6 +52,10 @@ export class EyeTunesAppComponent implements AfterViewInit {
 
   public togglePlay() {
     this.store.dispatch({ type: AUDIOGRAPH_ACTIONS.TOGGLE_PLAY });
+  }
+
+  public toggleColorPicker() {
+    this.colorPickerOpen = !this.colorPickerOpen;
   }
 
   public controlTrack(direction: number) {

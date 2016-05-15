@@ -17,3 +17,5 @@
 <div class="player-control next-track" (click)="controlTrack(1)">
   <div class="fa fa-forward"></div>
 </div>
+<div class="picker-btn hint--top-left" data-hint="Customize Color" (click)="toggleColorPicker()" [ngClass]="{open: colorPickerOpen}"></div>
+<color-picker [open]="colorPickerOpen"></color-picker>

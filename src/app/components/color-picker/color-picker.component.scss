@@ -1,0 +1,40 @@
+.color-picker {
+  position: absolute;
+  bottom: -350px;
+  width: 18em;
+  right:0px;
+  background-color: rgba(255,255,255, .4);
+  z-index: 50;
+  height: 350px;
+  padding:12px;
+  overflow: scroll;
+  transition: bottom .3s;
+  -webkit-transition: bottom .3s;
+  -moz-transition: bottom .3s;
+  
+  input {
+    width:60px;
+  }
+  
+  &.open {
+    bottom: 0em;
+  }
+  
+  ul li {
+    padding:4px 0 4px 202px;
+  }
+  
+  .directions {
+        position: absolute;
+    top: 32px;
+    width: 170px;
+    color: purple;
+    font-style: italic;
+    opacity: .5;
+  }
+  
+  .btn {
+        margin-left: 130px;
+    margin-top: 10px;
+  }
+}

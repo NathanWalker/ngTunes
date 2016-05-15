@@ -1,0 +1,38 @@
+<div class="color-picker" [ngClass]="{open: open}">
+  <ul>
+    <li>
+      <input [(colorPicker)]="color" 
+       [style.background]="color"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color2" 
+       [style.background]="color2"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color3" 
+       [style.background]="color3"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color4" 
+       [style.background]="color4"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color5" 
+       [style.background]="color5"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color6" 
+       [style.background]="color6"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color7" 
+       [style.background]="color7"/>
+    </li>
+    <li>
+      <input [(colorPicker)]="color8" 
+       [style.background]="color8"/>
+    </li>
+  </ul>
+  <div class="directions">Touch color swatches, change, click Apply.</div>
+  <button type="submit" class="btn btn-primary" (click)="save()">Apply</button>
+</div>

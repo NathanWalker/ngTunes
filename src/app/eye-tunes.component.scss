@@ -64,6 +64,28 @@
   }
 }
 
+.picker-btn {
+  position: fixed;
+  cursor: pointer;
+  z-index: 75;
+  bottom:20px;
+  right:20px;
+  opacity: .7;
+  transition: bottom .3s;
+  -webkit-transition: bottom .3s;
+  -moz-transition: bottom .3s;
+  background-image: url("img/colorpicker-256x256.png");
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  height: 40px;
+  width:40px;
+  
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .prev-track {
   left:28px;
 }
