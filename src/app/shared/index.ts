@@ -1,5 +1,5 @@
 import {provide} from '@angular/core';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {Location, LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {ROUTER_PROVIDERS} from '@angular/router';
 import {Angulartics2} from 'angulartics2';
 import {Angulartics2Segment} from 'angulartics2/src/providers/angulartics2-segment';
@@ -15,7 +15,7 @@ import {TweetModel} from './tweet.model';
 
 export const APP_PROVIDERS: any[] = [
   ROUTER_PROVIDERS,
-  provide(LocationStrategy, { useClass: PathLocationStrategy }),
+  provide(LocationStrategy, { useClass: HashLocationStrategy }),
   Angulartics2,
   Angulartics2Segment,
   AnalyticsService,
