@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchResultsComponent } from './components/search/search-results.component';
 import { SnapshotComponent } from './components/snapshot/snapshot.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
+import { TwitterFeedComponent } from './components/twitter-feed/twitter-feed.component';
 
 @Component({
   moduleId: module.id,
@@ -22,12 +23,14 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
     SearchComponent,
     SearchResultsComponent,
     SnapshotComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    TwitterFeedComponent
   ]
 })
 export class EyeTunesAppComponent implements AfterViewInit {
+
   title = 'eye-tunes works!';
-  
+
   constructor(private logger: LogService, private store: Store<any>, private snapshot: SnapshotService, public audiograph: AudiographService) {
     logger.debug('Logging working: EyeTunesAppComponent :)');
   }
