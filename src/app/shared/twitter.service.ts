@@ -88,6 +88,9 @@ export const twitterReducer: Reducer<ITwitterState> = (state: ITwitterState = in
     case TWITTER_ACTIONS.TOGGLE_MENU:
       if (typeof action.payload === 'undefined') {
         action.payload = { menuOpen: !state.menuOpen };
+        if (!action.payload.menuOpen) {
+          action.payload.composeOpen = false;
+        }
       }
       return changeState();
     case TWITTER_ACTIONS.TOGGLE_COMPOSE:

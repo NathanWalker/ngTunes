@@ -72,8 +72,8 @@ export class SnapshotService {
   }
 
   public snap(el: any) {
-    let width = this.win.innerWidth;
-    let height = this.win.innerHeight;
+    let width = 100;//this.win.innerWidth;
+    let height = 100;//this.win.innerHeight;
     this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: this.screenshot.convertToPNG(el, width, height).src } });
     // this.screenshot(el).then((canvas: any) => {
     //   this.store.dispatch({ type: SNAPSHOT_ACTIONS.SNAPSHOT_READY, payload: { image: canvas.toDataURL("image/png")} })
