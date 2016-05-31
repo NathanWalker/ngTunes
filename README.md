@@ -46,7 +46,6 @@ Credits and libs used:
 * [pusher-js](https://github.com/pusher/pusher-js)
 * [three.js](http://threejs.org/)
 * [audiograph.xyz](https://github.com/mattdesl/audiograph.xyz)
-  * Huge thanks to [Matt DesLauriers](https://github.com/mattdesl) for permission to customize his sweet visualizer!
 * [angular2-color-picker](https://github.com/Alberplz/angular2-color-picker)
 * [Spotify web api](https://developer.spotify.com/web-api/)
 * [Twitter api](https://dev.twitter.com/rest/public)
