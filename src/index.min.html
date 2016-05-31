@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>ngTunes | The Angular 2.0 Music Player</title>
+  <title>ngTunes | The Angular 2.0 Music Explorer</title>
   <base href="/">
 
   <!--{{#if environment.production}}-->
@@ -76,9 +76,6 @@
   </div>
   <eye-tunes-app>
   </eye-tunes-app>
-  
-  <div class="credits-label">Visualizer by <a href="https://github.com/mattdesl/audiograph.xyz" target="_blank">Matt DesLauriers</a><br>
-  </div>
     
   <section class="wrapper" id="loader">
     <div class="spinner">
@@ -97,14 +94,14 @@
 
 
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
-    <!--<script>
+    <script>
       System.import('system-config.js').then(function () {
         System.import('main');
       }).catch(console.error.bind(console));
-    </script>-->
+    </script>
 
-    <!-- deployed -->
-    <script src="/scripts/main.bundle.js"></script>
+
+
     <!-- TODO remove -->
     <!--<script src="/scripts/audiograph.js"></script>-->
     <script src="/scripts/audiograph.min.js"></script>

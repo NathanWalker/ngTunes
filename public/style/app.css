@@ -9,6 +9,15 @@
   padding: 0;
 }
 
+.credits-label {
+  position: fixed;
+  bottom: 95px;
+  left: 50%;
+  margin-left: -93px;
+  font-size: 13px;
+  text-align: center;
+}
+
 /*body {
   background: lightblue;
 }*/
