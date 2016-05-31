@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+// libs
+import {Analytics, AnalyticsService} from '../../shared/analytics.service';
 import { Store } from '@ngrx/store';
+
 import { WindowService, AudiographService, AUDIOGRAPH_ACTIONS } from '../../shared/index';
 import {ColorPickerService} from './color-picker.service';
 import {ColorPickerDirective} from './color-picker.directive';
@@ -13,7 +17,7 @@ declare var $audiograph: any;
   providers: [ColorPickerService],
   directives: [ColorPickerDirective]
 })
-export class ColorPickerComponent implements OnInit {
+export class ColorPickerComponent extends Analytics implements OnInit {
   @Input() public open: boolean;
   public color: string = "#127bdc";
   public color2: string = "hsla(300,82%,52%)";
@@ -24,8 +28,9 @@ export class ColorPickerComponent implements OnInit {
   public color7: string = "#f200bd";
   public color8: string = "#a8ff00";
   
-  constructor(private win: WindowService, private store: Store<any>, public audiograph: AudiographService) {
-    
+  constructor(public analytics:AnalyticsService, private win: WindowService, private store: Store<any>, public audiograph: AudiographService) {
+    super(analytics);
+    this.category = 'ColorPicker';
   }
   
   ngOnInit(){
@@ -33,6 +38,7 @@ export class ColorPickerComponent implements OnInit {
   }
 
   public save() {
+    this.track(`Change Palette`, { label: `8 colors` });
     $audiograph.setPalette([this.color, this.color2, this.color3, this.color4, this.color5, this.color6, this.color7, this.color8]);
     return;
   }

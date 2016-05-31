@@ -25,6 +25,7 @@ Contributions will be reviewed by a core community team and end up on the live a
 - [ ] Create a NativeScript app of the player
 - [ ] Allow more customizations to visualizers
 - [ ] Create standalone plugin widget of just the Spotify search
+- [ ] Integrate Webpack for the production build
 - [ ] Fix bug with removing tracks
 
 ## Overview
