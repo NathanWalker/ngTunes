@@ -2,11 +2,7 @@
 
 # ngTunes
 
-ngTunes is a music visualization application written using angular 2. 
-Users can search Spotify for tracks to customize a playlist to sample 
-their favorite tunes. While listening and viewing their playlist users 
-can also tweet about what they're rocking as well as set what others 
-are enjoying.
+ngTunes is a music visualization application written with Angular 2. Users can search Spotify for tracks to customize a playlist to sample their favorite tunes. Users can also tweet about what they're listening to as well as see what others are enjoying via a live tweet stream.
 
 [Listen to music now!](http://www.angulartunes.com)
 
@@ -19,14 +15,14 @@ Contributions will be reviewed by a core community team and end up on the live a
 
 ## TODO List
 
-- [ ] Plug/play visualizers
-- [ ] Allow playlists to be shared via AngularFire2 integration
-- [ ] Make playlist loop through all tracks instead of repeat the same one over and over
-- [ ] Create a NativeScript app of the player
-- [ ] Allow more customizations to visualizers
-- [ ] Create standalone plugin widget of just the Spotify search
-- [ ] Integrate Webpack for the production build
-- [ ] Fix bug with removing tracks
+- [ ] Plug/play visualizers (https://github.com/NathanWalker/ngTunes/issues/1)
+- [ ] Allow playlists to be shared via AngularFire2 integration (https://github.com/NathanWalker/ngTunes/issues/2)
+- [ ] Make playlist loop through all tracks instead of repeat the same one over and over (https://github.com/NathanWalker/ngTunes/issues/3)
+- [ ] Create a NativeScript app of the player (https://github.com/NathanWalker/ngTunes/issues/4)
+- [ ] Allow more customizations to visualizers (https://github.com/NathanWalker/ngTunes/issues/5)
+- [ ] Create standalone plugin widget of just the Spotify search (https://github.com/NathanWalker/ngTunes/issues/6)
+- [ ] Integrate Webpack for the production build (https://github.com/NathanWalker/ngTunes/issues/7)
+- [ ] Fix bug with removing tracks (https://github.com/NathanWalker/ngTunes/issues/8)
 
 ## Overview
 
