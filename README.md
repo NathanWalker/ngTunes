@@ -2,7 +2,7 @@
 
 # ngTunes
 
-ngTunes is a music visualization application written with Angular 2. Users can search Spotify for tracks to customize a playlist to sample their favorite tunes. Users can also tweet about what they're listening to as well as see what others are enjoying via a live tweet stream.
+ngTunes is a music player application built with [Angular 2](https://angular.io/). Users can search Spotify for tracks to customize a playlist to sample their favorite tunes. Users can also tweet about what they're listening to as well as see what others are enjoying via a live tweet stream.
 
 [Listen to music now!](http://www.angulartunes.com)
 
@@ -38,14 +38,14 @@ stream and for posting to the user's timeline if they choose to share.
 Credits and libs used:
 
 * [Angular CLI](https://cli.angular.io/)
-* [Infowrap](http://www.infowrap.com/2159/overview?token=5c3064c7-4bab-455c-b133-c5bbaee31f0f)
-  * productivity tool to keep everyone on same page
-  * Files area contains animated gifs of some progress along the way
 * [angulartics2](https://github.com/angulartics/angulartics2)
 * [@ngrx/store](https://github.com/ngrx/store)
 * [pusher-js](https://github.com/pusher/pusher-js)
 * [three.js](http://threejs.org/)
 * [audiograph.xyz](https://github.com/mattdesl/audiograph.xyz)
+* [Infowrap](http://www.infowrap.com/2159/overview?token=5c3064c7-4bab-455c-b133-c5bbaee31f0f)
+  * productivity tool to keep everyone on same page
+  * Files area contains animated gifs of some progress along the way
 * [angular2-color-picker](https://github.com/Alberplz/angular2-color-picker)
 * [Spotify web api](https://developer.spotify.com/web-api/)
 * [Twitter api](https://dev.twitter.com/rest/public)
