@@ -8,14 +8,19 @@ their favorite tunes. While listening and viewing their playlist users
 can also tweet about what they're rocking as well as set what others 
 are enjoying.
 
+[Listen to music now!](http://www.angulartunes.com)
+
 ## Contribute!
 
 Want to make ngTunes better?
-Submit a Pull Request.
+Submit a Pull Request. Take a look at the [TODO List](#todo-list) for ideas on what to play around with.
+
+Contributions will be reviewed by a core community team and end up on the live audio player at [angulartunes.com](http://www.angulartunes.com).
 
 ## TODO List
 
 - [ ] Plug/play visualizers
+- [ ] Allow playlists to be shared via AngularFire2 integration
 - [ ] Make playlist loop through all tracks instead of repeat the same one over and over
 - [ ] Create a NativeScript app of the player
 - [ ] Allow more customizations to visualizers
